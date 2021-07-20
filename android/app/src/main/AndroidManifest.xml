@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.snapseed">
+    package="com.example.snapcut">
    <application
-        android:label="snapseed"
+        android:label="snapcut"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

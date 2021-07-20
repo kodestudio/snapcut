@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapseed/src/controllers/settings/settings_controller.dart';
+import 'package:snapcut/src/controllers/settings/settings_controller.dart';
 
 class SettingScreen extends HookConsumerWidget {
   const SettingScreen({Key? key}) : super(key: key);

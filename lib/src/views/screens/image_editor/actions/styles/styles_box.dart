@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapseed/src/controllers/image_editor/image_editor_controller.dart';
-import 'package:snapseed/src/utils/styles.dart';
+import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
+import 'package:snapcut/src/utils/styles.dart';
 
 const double kStylesBoxHeight = 112.0;
 

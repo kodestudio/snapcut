@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:snapseed/src/models/filter_tool/tool_type.dart';
+import 'package:snapcut/src/models/filter_tool/tool_type.dart';
 
 class ToolGridTile extends StatelessWidget {
   const ToolGridTile({

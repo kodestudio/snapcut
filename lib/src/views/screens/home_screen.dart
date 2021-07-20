@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapseed/src/controllers/seed_image_controller.dart';
-import 'package:snapseed/src/utils/globals.dart';
-import 'package:snapseed/src/views/screens/image_editor/image_editor_screen.dart';
-import 'package:snapseed/src/views/screens/image_editor/components/top_tool.dart';
-import 'package:snapseed/src/views/widgets/bottom/bottom.dart';
+import 'package:snapcut/src/controllers/seed_image_controller.dart';
+import 'package:snapcut/src/utils/globals.dart';
+import 'package:snapcut/src/views/screens/image_editor/image_editor_screen.dart';
+import 'package:snapcut/src/views/screens/image_editor/components/top_tool.dart';
+import 'package:snapcut/src/views/widgets/bottom/bottom.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);

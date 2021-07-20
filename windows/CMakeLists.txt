@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(snapseed LANGUAGES CXX)
+project(snapcut LANGUAGES CXX)
 
-set(BINARY_NAME "snapseed")
+set(BINARY_NAME "snapcut")
 
 cmake_policy(SET CMP0063 NEW)
 

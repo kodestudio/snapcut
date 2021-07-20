@@ -2,12 +2,12 @@ import 'dart:io' as io;
 
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapseed/src/_internal/universal_picker/universal_picker.dart';
-import 'package:snapseed/src/db/snapseed_db.dart';
-import 'package:snapseed/src/models/filter_tool/.filter.dart';
-import 'package:snapseed/src/models/filter_tool/filter_tool_type.dart';
-import 'package:snapseed/src/models/filter_tool/tool_type.dart';
-import 'package:snapseed/src/models/seed_image/seed_image.dart';
+import 'package:snapcut/src/_internal/universal_picker/universal_picker.dart';
+import 'package:snapcut/src/db/snapseed_db.dart';
+import 'package:snapcut/src/models/filter_tool/.filter.dart';
+import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
+import 'package:snapcut/src/models/filter_tool/tool_type.dart';
+import 'package:snapcut/src/models/seed_image/seed_image.dart';
 
 final seedImageControllerProvider = StateNotifierProvider<SeedImageController, SeedImage?>((ref) => SeedImageController());
 

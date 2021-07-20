@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:snapseed/src/utils/globals.dart';
-import 'package:snapseed/src/utils/styles.dart';
-import 'package:snapseed/src/views/screens/image_editor/actions/exports/exports_box.dart';
-import 'package:snapseed/src/views/screens/image_editor/actions/tools/tools_box.dart';
+import 'package:snapcut/src/utils/globals.dart';
+import 'package:snapcut/src/utils/styles.dart';
+import 'package:snapcut/src/views/screens/image_editor/actions/exports/exports_box.dart';
+import 'package:snapcut/src/views/screens/image_editor/actions/tools/tools_box.dart';
 
 final bottomActionStateProvider = StateNotifierProvider<BottomActionState, BottomAction>((ref) => BottomActionState());
 

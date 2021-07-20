@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:snapseed/src/models/filter_tool/filter_tool_type.dart';
-import 'package:snapseed/src/models/seed_image/seed_image.dart';
+import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
+import 'package:snapcut/src/models/seed_image/seed_image.dart';
 
 class IoSeedImage implements SeedImage {
   @override

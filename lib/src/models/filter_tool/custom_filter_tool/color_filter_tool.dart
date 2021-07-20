@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
-import 'package:snapseed/src/_internal/hex_color.dart';
-import 'package:snapseed/src/utils/db_id.dart';
+import 'package:snapcut/src/_internal/hex_color.dart';
+import 'package:snapcut/src/utils/db_id.dart';
 
 import '../filter_tool.dart';
 

@@ -1,6 +1,6 @@
 {
-    "name": "snapseed",
-    "short_name": "snapseed",
+    "name": "snapcut",
+    "short_name": "snapcut",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

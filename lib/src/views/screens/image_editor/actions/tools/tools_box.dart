@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapseed/src/models/filter_tool/tool_type.dart';
-import 'package:snapseed/src/utils/globals.dart';
-import 'package:snapseed/src/utils/styles.dart';
-import 'package:snapseed/src/views/screens/image_editor/actions/tools/tool_grid_tile.dart';
+import 'package:snapcut/src/models/filter_tool/tool_type.dart';
+import 'package:snapcut/src/utils/globals.dart';
+import 'package:snapcut/src/utils/styles.dart';
+import 'package:snapcut/src/views/screens/image_editor/actions/tools/tool_grid_tile.dart';
 
 const double kToolsBoxHeight = 497.0;
 

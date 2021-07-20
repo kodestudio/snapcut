@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapseed/src/utils/globals.dart';
+import 'package:snapcut/src/utils/globals.dart';
 
 const double kExportsBoxHeight = 328.0;
 

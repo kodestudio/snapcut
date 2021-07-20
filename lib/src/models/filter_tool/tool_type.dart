@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:snapseed/src/utils/db_id.dart';
+import 'package:snapcut/src/utils/db_id.dart';
 
 part 'tool_type.g.dart';
 

@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
-import 'package:snapseed/src/models/filter_tool/.filter.dart';
-import 'package:snapseed/src/models/seed_image/seed_image.dart';
+import 'package:snapcut/src/models/filter_tool/.filter.dart';
+import 'package:snapcut/src/models/seed_image/seed_image.dart';
 
 class SeedImageDb {
   late Box<SeedImage?> _box;

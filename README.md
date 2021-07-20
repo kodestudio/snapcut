@@ -1,4 +1,4 @@
-# snapseed
+# snapcut
 
 A new Flutter project.
 

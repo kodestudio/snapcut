@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapseed/src/controllers/image_editor/image_editor_controller.dart';
+import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
 
 class ActionButton extends ConsumerWidget {
   const ActionButton({
