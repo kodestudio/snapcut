@@ -9,6 +9,7 @@ class BottomActionBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomTools = ref.watch(bottomActionStateProvider.notifier);
+    const basePath = 'home.bottom';
 
     return SizedBox(
       height: 48.0,
@@ -19,7 +20,7 @@ class BottomActionBar extends HookConsumerWidget {
           children: [
             Expanded(
               child: ActionButton(
-                text: 'KIỂU',
+                text: '$basePath.styles',
                 action: BottomAction.styles,
                 onPressed: () {
                   bottomTools.showStyles();
@@ -28,7 +29,7 @@ class BottomActionBar extends HookConsumerWidget {
             ),
             Expanded(
               child: ActionButton(
-                text: 'CÔNG CỤ',
+                text: '$basePath.tools',
                 action: BottomAction.tools,
                 onPressed: () {
                   bottomTools.showTools();
@@ -37,7 +38,7 @@ class BottomActionBar extends HookConsumerWidget {
             ),
             Expanded(
               child: ActionButton(
-                text: 'XUẤT',
+                text: '$basePath.exports',
                 action: BottomAction.exports,
                 onPressed: () {
                   bottomTools.showExports();

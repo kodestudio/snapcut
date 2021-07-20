@@ -14,12 +14,12 @@ final seedImageControllerProvider = StateNotifierProvider<SeedImageController, S
 class SeedImageController extends StateNotifier<SeedImage?> {
   SeedImageController() : super(null) {
     if (kIsWeb) return;
-    var si = SnapseedDb.singleton.seedImage.seedImage;
+    var si = SnapcutDb.singleton.seedImage.seedImage;
     if (si != null && si.path != null) {
       if (io.File(si.path!).existsSync()) {
         state = si;
       } else {
-        SnapseedDb.singleton.seedImage.seedImage = null;
+        SnapcutDb.singleton.seedImage.seedImage = null;
       }
     }
   }
@@ -53,7 +53,7 @@ class SeedImageController extends StateNotifier<SeedImage?> {
       if (universalPicker.path != null) {
         si.openFile(universalPicker.path!, defaultFilter);
         state = si;
-        SnapseedDb.singleton.seedImage.seedImage = state;
+        SnapcutDb.singleton.seedImage.seedImage = state;
       }
     }
   }

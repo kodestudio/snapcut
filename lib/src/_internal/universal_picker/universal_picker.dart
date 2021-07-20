@@ -8,5 +8,5 @@ abstract class UniversalPicker {
 
   Future<void> open();
 
-  factory UniversalPicker({String accept = ""}) => getPlatformPicker(accept: accept);
+  factory UniversalPicker() => getPlatformPicker();
 }

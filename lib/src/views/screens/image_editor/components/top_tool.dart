@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -50,22 +51,26 @@ class TopTool extends HookConsumerWidget {
                   onPressed: () {
                     seedImageCtl.openImage();
                   },
-                  child: const Text('MỞ'),
+                  child: Text('home.top.open'.tr()),
                 ),
               ),
               actions: [
-                SnapseedIconButton(
+                SnapcutIconButton(
                   onPressed: () {},
+                  label: 'home.top.editStack',
                   icon: const Icon(Icons.layers),
                 ),
                 const SizedBox(width: Insets.sm),
-                SnapseedIconButton(
+                SnapcutIconButton(
                   onPressed: () {},
+                  label: 'home.top.imageDetails',
                   icon: const Icon(Icons.info),
                 ),
                 const SizedBox(width: Insets.sm),
-                SnapseedIconButton(
+                SnapcutIconButton(
                   onPressed: () {
+                    const basePath = 'home.top.moreOptionsChildren';
+
                     showMenu(
                       context: context,
                       position: RelativeRect.fromLTRB(MediaQuery.of(context).size.width, 0, 0, 0),
@@ -78,19 +83,20 @@ class TopTool extends HookConsumerWidget {
                             );
                           },
                           textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Theme.of(context).colorScheme.onBackground),
-                          child: const SizedBox(width: 100.0, child: Text('Cài đặt')),
+                          child: SizedBox(width: 150.0, child: Text('$basePath.settings'.tr())),
                         ),
                         PopupMenuItem(
                           textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Theme.of(context).colorScheme.onBackground),
-                          child: const SizedBox(width: 100.0, child: Text('Hướng đẫn')),
+                          child: SizedBox(width: 150.0, child: Text('$basePath.tutorials'.tr())),
                         ),
                         PopupMenuItem(
                           textStyle: Theme.of(context).textTheme.bodyText1!.copyWith(color: Theme.of(context).colorScheme.onBackground),
-                          child: const SizedBox(width: 100.0, child: Text('Đánh giá')),
+                          child: SizedBox(width: 150.0, child: Text('$basePath.helpAndFeedback'.tr())),
                         ),
                       ],
                     );
                   },
+                  label: 'home.top.moreOptions',
                   icon: const Icon(Icons.more_vert_sharp),
                 ),
                 const SizedBox(width: Insets.sm),
@@ -103,25 +109,29 @@ class TopTool extends HookConsumerWidget {
   }
 }
 
-class SnapseedIconButton extends StatelessWidget {
-  const SnapseedIconButton({Key? key, required this.onPressed, required this.icon}) : super(key: key);
+class SnapcutIconButton extends StatelessWidget {
+  const SnapcutIconButton({Key? key, required this.onPressed, required this.icon, required this.label}) : super(key: key);
 
   final VoidCallback onPressed;
   final Widget icon;
+  final String label;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 36.0,
       width: 36.0,
-      child: RawMaterialButton(
-        padding: EdgeInsets.zero,
-        shape: const CircleBorder(),
-        onPressed: onPressed,
-        child: Center(
-          child: IconTheme(
-            data: IconThemeData(color: Theme.of(context).colorScheme.onBackground),
-            child: icon,
+      child: Tooltip(
+        message: label.tr(),
+        child: RawMaterialButton(
+          padding: EdgeInsets.zero,
+          shape: const CircleBorder(),
+          onPressed: onPressed,
+          child: Center(
+            child: IconTheme(
+              data: IconThemeData(color: Theme.of(context).colorScheme.onBackground),
+              child: icon,
+            ),
           ),
         ),
       ),

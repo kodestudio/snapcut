@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -55,7 +56,7 @@ class EmptyScreen extends HookConsumerWidget {
                       color: Theme.of(context).colorScheme.onBackground,
                     ),
                     Text(
-                      'Chạm để chọn ảnh',
+                      'home.body.tapToSelectImage'.tr(),
                       style: Theme.of(context).textTheme.headline6,
                     ),
                   ],

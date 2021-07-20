@@ -1,0 +1,90 @@
+{
+    "appInfo": {
+        "version": "0.0.1",
+        "language": "Việt nam"
+    },
+    "home": {
+        "top": {
+            "open": "MỞ",
+            "imageDetails": "Chi tiết hình ảnh",
+            "imageDetailsChilren": {},
+            "moreOptions": "Tùy chọn khác",
+            "moreOptionsChildren": {
+                "settings": "Cài đặt",
+                "tutorials": "Hướng đãn",
+                "helpAndFeedback": "Trợ giúp và phản hồi"
+            },
+            "editStack": "Ngăn chỉnh sửa",
+            "editStackChildren": {
+                "undo": "Hoàn tác",
+                "redo": "Làm lại",
+                "revert": "Hoàn nguyên",
+                "viewEdits": "Xem chỉnh sửa",
+                "qrLook": "Kiểu QR..."
+            }
+        },
+        "body": {
+            "tapToSelectImage": "Chạm bất kì đâu để chọn ảnh"
+        },
+        "bottom": {
+            "styles": "KIỂU",
+            "tools": "CÔNG CỤ",
+            "exports": "XUẤT ẢNH"
+        }
+    },
+    "settings": {
+        "name": "Cài đặt",
+        "appearance": "Giao diện",
+        "darkTheme": "Giao diện tối"
+    },
+    "imageEditor": {
+        "tools": {
+            "tune": "Chỉnh hình ảnh",
+            "details": "Chi tiết",
+            "curves": "Đồ thị màu",
+            "whiteBalance": "Cân bằng trắng",
+            "crop": "Cắt",
+            "rotate": "Xoay",
+            "perspective": "Phối cảnh",
+            "expand": "Mở rộng",
+            "selective": "Chọn lọc",
+            "brush": "Bút vẽ",
+            "healing": "Chỉnh sửa",
+            "hdr": "HDR Scape",
+            "glamourGlow": "Tỏa sáng huyền ảo",
+            "tonalContrast": "T.phản tông màu",
+            "drama": "Kịch tính",
+            "vintage": "Cổ điển",
+            "grainyFilms": "Phim nhựa",
+            "retrolux": "Ngược sáng",
+            "grunge": "Grunge",
+            "blackAndWhite": "Đen trắng",
+            "noir": "Noir",
+            "portrait": "Chân dung",
+            "headPose": "Tư thế đầu",
+            "lensBlur": "Làm mờ ống kính",
+            "vignette": "Làm mờ nét ảnh",
+            "doubleExposure": "Phơi sáng kép",
+            "text": "Văn bản",
+            "frames": "Khung"
+        },
+        "exports": {
+            "share": {
+                "name": "Chia sẻ",
+                "desc": "Chia sẻ ảnh của bạn với mọi người hoặc mở trong một ứng dụng khác."
+            },
+            "save": {
+                "name": "Lưu",
+                "desc": "Tạo bản sao cho ảnh của bạn."
+            },
+            "export": {
+                "name": "Xuất",
+                "desc": "Tạo bản sao cho ảnh của bạn. Có thể thay đổi kích thước, định dạng và chất lượng trong menu cài đặt."
+            },
+            "exportAs": {
+                "name": "Xuất dưới dạng",
+                "desc": "Tạo bản sao trong thư mục đã chọn."
+            }
+        }
+    }
+}

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,18 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  await SnapseedDb.singleton.init();
+  await SnapcutDb.singleton.init();
 
-  runApp(const ProviderScope(child: MyApp()));
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    ProviderScope(
+      child: EasyLocalization(
+        supportedLocales: const [Locale('vi', 'VN')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('vi', 'VN'),
+        child: const MyApp(),
+      ),
+    ),
+  );
 }

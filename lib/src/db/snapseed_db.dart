@@ -1,11 +1,11 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:snapcut/src/db/seed_image_db.dart';
 
-class SnapseedDb {
-  static final SnapseedDb _singleton = SnapseedDb._internal();
-  static final SnapseedDb singleton = _singleton;
-  SnapseedDb._internal();
-  factory SnapseedDb() => _singleton;
+class SnapcutDb {
+  static final SnapcutDb _singleton = SnapcutDb._internal();
+  static final SnapcutDb singleton = _singleton;
+  SnapcutDb._internal();
+  factory SnapcutDb() => _singleton;
 
   final SeedImageDb seedImage = SeedImageDb();
 

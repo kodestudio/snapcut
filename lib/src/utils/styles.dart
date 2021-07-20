@@ -1,8 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 class Durations {
   static const Duration fastest = Duration(milliseconds: 150);
 
@@ -44,20 +41,6 @@ class Insets {
   static const double xl = 36 * scale;
 }
 
-class FontSizes {
-  static const double scale = 1;
-
-  static const double s11 = 11 * scale;
-
-  static const double s12 = 12 * scale;
-
-  static const double s14 = 14 * scale;
-
-  static const double s16 = 16 * scale;
-
-  static const double s18 = 18 * scale;
-}
-
 class Sizes {
   static const double hitScale = 1;
 
@@ -70,63 +53,4 @@ class Sizes {
   static const double sideBarMed = 200 * hitScale;
 
   static const double sideBarLg = 290 * hitScale;
-}
-
-class Shadows {
-  static bool enabled = true;
-
-  static double get mRadius => 8;
-
-  static List<BoxShadow> m(Color color, [double opacity = 0]) {
-    return enabled
-        ? [
-            BoxShadow(
-              color: color.withOpacity(opacity),
-              blurRadius: mRadius,
-              spreadRadius: mRadius / 2,
-              offset: const Offset(1, 0),
-            ),
-            BoxShadow(
-              color: color.withOpacity(opacity),
-              blurRadius: mRadius / 2,
-              spreadRadius: mRadius / 4,
-              offset: const Offset(1, 0),
-            )
-          ]
-        : const <BoxShadow>[];
-  }
-}
-
-class Corners {
-  static const double btn = s5;
-
-  static const double dialog = 12;
-
-  /// Xs
-  static const double s3 = 3;
-
-  static BorderRadius get s3Border => BorderRadius.all(s3Radius);
-
-  static Radius get s3Radius => const Radius.circular(s3);
-
-  /// Small
-  static const double s5 = 5;
-
-  static BorderRadius get s5Border => BorderRadius.all(s5Radius);
-
-  static Radius get s5Radius => const Radius.circular(s5);
-
-  /// Medium
-  static const double s8 = 8;
-
-  static const BorderRadius s8Border = BorderRadius.all(s8Radius);
-
-  static const Radius s8Radius = Radius.circular(s8);
-
-  /// Large
-  static const double s10 = 10;
-
-  static BorderRadius get s10Border => BorderRadius.all(s10Radius);
-
-  static Radius get s10Radius => const Radius.circular(s10);
 }

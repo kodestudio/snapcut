@@ -1,22 +1,17 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:universal_io/io.dart';
 
 import 'universal_picker.dart';
 import 'package:filepicker_windows/filepicker_windows.dart' as picker;
 
-class UniversalPickerIo implements UniversalPicker {
+class IoUniversalPicker implements UniversalPicker {
   @override
   String? path;
 
   @override
   Uint8List? uint8list;
-
-  UniversalPickerIo({required String accept}) {
-    // The desktop file picker plugin doesn't accept these input accept strings,
-    // the pickImage function has a hardcoded image filter in it
-  }
 
   @override
   Future<void> open() async {
@@ -41,4 +36,4 @@ class UniversalPickerIo implements UniversalPicker {
   }
 }
 
-UniversalPicker getPlatformPicker({required String accept}) => UniversalPickerIo(accept: accept);
+UniversalPicker getPlatformPicker() => IoUniversalPicker();

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
@@ -29,7 +30,7 @@ class ActionButton extends ConsumerWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(text),
+        child: Text(text.tr()),
       ),
     );
   }

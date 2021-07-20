@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/settings/settings_controller.dart';
@@ -17,7 +18,7 @@ class SettingScreen extends HookConsumerWidget {
           icon: const Icon(Icons.arrow_back),
         ),
         title: Text(
-          'Cài đặt',
+          'settings.name'.tr(),
           style: Theme.of(context).textTheme.subtitle1!.copyWith(
                 color: controller.isDark ? Colors.white : Colors.black,
               ),
@@ -27,11 +28,11 @@ class SettingScreen extends HookConsumerWidget {
         children: [
           _settingFolder(
             context,
-            title: 'Giao diện',
+            title: 'settings.appearance',
             children: [
               ListTile(
                 onTap: () => controller.changeTheme(!controller.isDark),
-                title: const Text('Giao diện tối'),
+                title: Text('settings.darkTheme'.tr()),
                 trailing: Switch(
                   activeColor: const Color(0xFF6194D5),
                   onChanged: (isDark) {
@@ -61,7 +62,7 @@ class SettingScreen extends HookConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                title,
+                title.tr(),
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: Theme.of(context).colorScheme.primary,
                       fontWeight: FontWeight.bold,
