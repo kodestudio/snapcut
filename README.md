@@ -25,8 +25,14 @@ Chạy lệnh
 ### Cài đặt snapcut
 Clone snapcut qua git
 ```sh
-    git clone 
+    git clone https://github.com/kodestudio/snapcut.git
+    flutter pub get
 ```
+Chạy thử trên chrome
+```sh
+    flutter run -d chrome
+```
+
 
 ## Tính năng chính
 
