@@ -40,3 +40,6 @@ Chạy thử trên chrome
 - Lưu trữ ảnh đang được chỉnh sửa trên cloud với thời gian thực (Coming soon)
 - Chạy trên mọi nền tảng mobile, web, desktop.
 - Đa ngôn ngữ.
+
+## Cấu trúc dự án
+Xem tại file [structure.md](lib/src/structure.md)
