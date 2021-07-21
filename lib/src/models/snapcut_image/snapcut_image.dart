@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
 import 'package:snapcut/src/utils/hive_id.dart';
 
-import 'snapcut_image_locator.dart' if (dart.library.io) 'io_seed_image.dart' if (dart.library.html) 'web_seed_image.dart';
+import 'snapcut_image_locator.dart' if (dart.library.io) 'io_snapcut_image.dart' if (dart.library.html) 'web_snapcut_image.dart';
 
 part 'snapcut_image.g.dart';
 
