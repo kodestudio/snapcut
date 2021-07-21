@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
 
-import 'seed_image.dart';
+import 'snapcut_image.dart';
 
-class WebSeedImage implements SeedImage {
+class WebSnapcutImage implements SnapcutImage {
   @override
   Uint8List? bytes;
 
@@ -36,4 +36,4 @@ class WebSeedImage implements SeedImage {
   }
 }
 
-SeedImage getPlatformSeedImage() => WebSeedImage();
+SnapcutImage getPlatformSnapcutImage() => WebSnapcutImage();

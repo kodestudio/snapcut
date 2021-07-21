@@ -3,23 +3,23 @@ import 'dart:io' as io;
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/_internal/universal_picker/universal_picker.dart';
-import 'package:snapcut/src/db/snapseed_db.dart';
+import 'package:snapcut/src/db/snapcut_db.dart';
 import 'package:snapcut/src/models/filter_tool/.filter.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
 import 'package:snapcut/src/models/filter_tool/tool_type.dart';
-import 'package:snapcut/src/models/seed_image/seed_image.dart';
+import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 
-final seedImageControllerProvider = StateNotifierProvider<SeedImageController, SeedImage?>((ref) => SeedImageController());
+final snapcutImageControllerProvider = StateNotifierProvider<SnapcutImageController, SnapcutImage?>((ref) => SnapcutImageController());
 
-class SeedImageController extends StateNotifier<SeedImage?> {
-  SeedImageController() : super(null) {
+class SnapcutImageController extends StateNotifier<SnapcutImage?> {
+  SnapcutImageController() : super(null) {
     if (kIsWeb) return;
-    var si = SnapcutDb.singleton.seedImage.seedImage;
+    var si = SnapcutDb.singleton.image.snapcutImage;
     if (si != null && si.path != null) {
       if (io.File(si.path!).existsSync()) {
         state = si;
       } else {
-        SnapcutDb.singleton.seedImage.seedImage = null;
+        SnapcutDb.singleton.image.snapcutImage = null;
       }
     }
   }
@@ -27,7 +27,7 @@ class SeedImageController extends StateNotifier<SeedImage?> {
   void openImage() async {
     UniversalPicker universalPicker = UniversalPicker();
     await universalPicker.open();
-    var si = SeedImage();
+    var si = SnapcutImage();
     List<FilterToolType> defaultFilter = [
       FilterToolType(
         ToolType.tune,
@@ -53,7 +53,7 @@ class SeedImageController extends StateNotifier<SeedImage?> {
       if (universalPicker.path != null) {
         si.openFile(universalPicker.path!, defaultFilter);
         state = si;
-        SnapcutDb.singleton.seedImage.seedImage = state;
+        SnapcutDb.singleton.image.snapcutImage = state;
       }
     }
   }

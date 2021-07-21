@@ -8,11 +8,11 @@ class EditedImage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final seedImage = ref.watch(seedImageControllerProvider)!;
+    final snapcutImage = ref.watch(snapcutImageControllerProvider)!;
 
     return Stack(
       children: [
-        Center(child: seedImage.image),
+        Center(child: snapcutImage.image),
       ],
     );
   }

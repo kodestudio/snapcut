@@ -13,10 +13,10 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final seedImage = ref.watch(seedImageControllerProvider);
+    final snapcutImage = ref.watch(snapcutImageControllerProvider);
 
     return Scaffold(
-      body: seedImage == null
+      body: snapcutImage == null
           ? const EmptyScreen()
           : Navigator(
               key: Globals.bodyNav,
@@ -25,7 +25,7 @@ class HomeScreen extends HookConsumerWidget {
                 builder: (context) => const ImageEditorScreen(),
               ),
             ),
-      bottomNavigationBar: seedImage == null ? null : const BottomActionBar(),
+      bottomNavigationBar: snapcutImage == null ? null : const BottomActionBar(),
     );
   }
 }
@@ -35,14 +35,14 @@ class EmptyScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final seedImageCtl = ref.watch(seedImageControllerProvider.notifier);
+    final snapcutImageCtl = ref.watch(snapcutImageControllerProvider.notifier);
     return Column(
       children: [
         const TopTool(),
         Expanded(
           child: GestureDetector(
             onTap: () {
-              seedImageCtl.openImage();
+              snapcutImageCtl.openImage();
             },
             child: Container(
               color: Colors.transparent,

@@ -1,7 +1,7 @@
 class HiveId {
-  static const seedImage = 0;
-  static const webSeedImage = 1;
-  static const ioSeedImage = 2;
+  static const snapcutImage = 0;
+  static const webSnapcutImage = 1;
+  static const ioSnapcutImage = 2;
   static const colorFilterTool = 3;
   static const matrixFilterTool = 4;
   static const typeFilterTool = 5;

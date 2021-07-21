@@ -1,9 +1,9 @@
 import 'package:hive/hive.dart';
 import 'package:snapcut/src/models/filter_tool/.filter.dart';
-import 'package:snapcut/src/models/seed_image/seed_image.dart';
+import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 
-class SeedImageDb {
-  late Box<SeedImage?> _box;
+class SnapcutImageDb {
+  late Box<SnapcutImage?> _box;
 
   Future<void> init() async {
     Hive.registerAdapter(BlendModeAdapter());
@@ -11,10 +11,10 @@ class SeedImageDb {
     Hive.registerAdapter(FilterToolTypeAdapter());
     Hive.registerAdapter(ColorFilterToolAdapter());
     Hive.registerAdapter(MatrixFilterToolAdapter());
-    Hive.registerAdapter(SeedImageAdapter());
+    Hive.registerAdapter(SnapcutImageAdapter());
     _box = await Hive.openBox('seed_image');
   }
 
-  SeedImage? get seedImage => _box.get('seed_image', defaultValue: null);
-  set seedImage(SeedImage? si) => _box.put('seed_image', si);
+  SnapcutImage? get snapcutImage => _box.get('seed_image', defaultValue: null);
+  set snapcutImage(SnapcutImage? si) => _box.put('seed_image', si);
 }

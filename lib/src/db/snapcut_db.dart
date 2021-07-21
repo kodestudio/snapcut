@@ -1,5 +1,5 @@
 import 'package:hive_flutter/adapters.dart';
-import 'package:snapcut/src/db/seed_image_db.dart';
+import 'package:snapcut/src/db/snapcut_image_db.dart';
 
 class SnapcutDb {
   static final SnapcutDb _singleton = SnapcutDb._internal();
@@ -7,10 +7,10 @@ class SnapcutDb {
   SnapcutDb._internal();
   factory SnapcutDb() => _singleton;
 
-  final SeedImageDb seedImage = SeedImageDb();
+  final SnapcutImageDb image = SnapcutImageDb();
 
   Future<void> init() async {
     await Hive.initFlutter();
-    await seedImage.init();
+    await image.init();
   }
 }

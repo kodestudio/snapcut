@@ -4,9 +4,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
-import 'package:snapcut/src/models/seed_image/seed_image.dart';
 
-class IoSeedImage implements SeedImage {
+import 'snapcut_image.dart';
+
+class IoSnapcutImage implements SnapcutImage {
   @override
   Uint8List? bytes;
 
@@ -36,4 +37,4 @@ class IoSeedImage implements SeedImage {
   }
 }
 
-SeedImage getPlatformSeedImage() => IoSeedImage();
+SnapcutImage getPlatformSnapcutImage() => IoSnapcutImage();

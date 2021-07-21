@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/models/filter_tool/tool_type.dart';
 import 'package:snapcut/src/utils/globals.dart';
+import 'package:snapcut/src/utils/router.dart';
 import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/tune_tool.dart';
 import 'package:snapcut/src/views/screens/image_editor/tools/unimplemented_tool.dart';
 
@@ -26,10 +27,7 @@ class ToolsController {
     }
 
     if (isImplemented) {
-      Navigator.push(
-        Globals.appNav.context,
-        MaterialPageRoute(builder: (_) => tool),
-      );
+      SnapcutRouter.push(Globals.appNav.context, tool);
     } else {
       showDialog(context: Globals.appNav.context, builder: (_) => tool);
     }

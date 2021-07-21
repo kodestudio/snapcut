@@ -1,4 +1,4 @@
-import 'filter_tool/filter_tool_type.dart';
+import 'filter_tool_type.dart';
 
 class PresetFilterTool {
   final String name;
