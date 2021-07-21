@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 
 import 'universal_picker.dart';
 
-class UniversalPickerWeb implements UniversalPicker {
+class WebUniversalPicker implements UniversalPicker {
   @override
   String? path;
 
@@ -21,4 +21,4 @@ class UniversalPickerWeb implements UniversalPicker {
   }
 }
 
-UniversalPicker getPlatformPicker() => UniversalPickerWeb();
+UniversalPicker getPlatformPicker() => WebUniversalPicker();

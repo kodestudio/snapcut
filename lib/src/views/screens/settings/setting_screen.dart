@@ -3,12 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/settings/settings_controller.dart';
 
+class LanguageOption {
+  const LanguageOption(this.name, this.locale);
+
+  final String name;
+  final Locale locale;
+}
+
 class SettingScreen extends HookConsumerWidget {
   const SettingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.watch(settingsControllerProvider);
+    const languageOptions = [
+      LanguageOption('Tiếng việt', Locale('vi', 'VN')),
+      LanguageOption('English', Locale('en', 'US')),
+    ];
+    final currentLanguage = 'appInfo.language'.tr();
 
     return Scaffold(
       appBar: AppBar(
@@ -41,6 +53,26 @@ class SettingScreen extends HookConsumerWidget {
                   value: controller.isDark,
                 ),
               ),
+            ],
+          ),
+          _settingFolder(
+            context,
+            title: 'settings.language',
+            children: [
+              for (final lang in languageOptions)
+                ListTile(
+                  title: Text(lang.name),
+                  onTap: () {
+                    EasyLocalization.of(context)!.setLocale(lang.locale);
+                  },
+                  trailing: Checkbox(
+                    activeColor: Theme.of(context).colorScheme.primary,
+                    value: currentLanguage == lang.name,
+                    onChanged: (_) {
+                      EasyLocalization.of(context)!.setLocale(lang.locale);
+                    },
+                  ),
+                ),
             ],
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:snapcut/src/utils/db_id.dart';
+import 'package:snapcut/src/utils/hive_id.dart';
 
 part 'tool_type.g.dart';
 
@@ -61,4 +61,8 @@ enum ToolType {
   text, // FIX: Unimplement
   @HiveField(27)
   frames, // FIX: Unimplement
+}
+
+extension LocalizationToolTypeX on ToolType {
+  String get path => 'imageEditor.tools.${toString().substring(9)}';
 }

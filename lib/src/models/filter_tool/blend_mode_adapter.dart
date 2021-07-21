@@ -1,6 +1,6 @@
 import 'package:flutter/painting.dart';
 import 'package:hive/hive.dart';
-import 'package:snapcut/src/utils/db_id.dart';
+import 'package:snapcut/src/utils/hive_id.dart';
 
 class BlendModeAdapter extends TypeAdapter<BlendMode> {
   @override

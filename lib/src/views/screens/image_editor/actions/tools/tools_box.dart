@@ -14,6 +14,7 @@ class ToolsBox extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
+      clipBehavior: Clip.none,
       height: kToolsBoxHeight,
       color: Theme.of(Globals.bodyNav.context).scaffoldBackgroundColor,
       child: ScrollbarTheme(
@@ -32,6 +33,7 @@ class ToolsBox extends HookConsumerWidget {
           crossAxisSpacing: 2,
           padding: const EdgeInsets.only(top: Insets.m),
           childAspectRatio: 72 / 80,
+          clipBehavior: Clip.none,
           children: const [
             ToolGridTile(toolType: ToolType.tune, icon: Icons.tune_outlined, label: 'imageEditor.tools.tune'),
             ToolGridTile(toolType: ToolType.details, icon: Icons.details_outlined, label: 'imageEditor.tools.details'),
