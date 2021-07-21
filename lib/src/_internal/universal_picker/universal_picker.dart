@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'universal_picker_locator.dart' if (dart.library.html) 'universal_picker_web.dart' if (dart.library.io) 'universal_picker_io.dart';
+import 'universal_picker_locator.dart' if (dart.library.html) 'web_universal_picker.dart' if (dart.library.io) 'io_universal_picker.dart';
 
 abstract class UniversalPicker {
   String? path;

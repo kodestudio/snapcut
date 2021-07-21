@@ -17,9 +17,9 @@ class ToolsController {
     bool isImplemented = true;
 
     switch (toolType) {
-      // case ToolType.tune:
-      //   tool = const TuneTool();
-      //   break;
+      case ToolType.tune:
+        tool = const TuneTool();
+        break;
       default:
         isImplemented = false;
         tool = UnimplementedTool(toolType);
