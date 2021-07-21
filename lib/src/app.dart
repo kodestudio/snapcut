@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/settings/settings_controller.dart';
 import 'package:snapcut/src/utils/globals.dart';
-import 'package:snapcut/src/views/screens/home_screen.dart';
+import 'package:snapcut/src/views/screens/home/home_screen.dart';
 
 class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
