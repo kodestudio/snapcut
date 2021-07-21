@@ -7,4 +7,8 @@ class SnapcutRouter {
       MaterialPageRoute(builder: (_) => page),
     );
   }
+
+  static void pop(BuildContext context) async {
+    return Navigator.pop(context);
+  }
 }

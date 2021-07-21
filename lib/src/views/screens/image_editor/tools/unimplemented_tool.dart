@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:snapcut/src/models/filter_tool/tool_type.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:snapcut/src/utils/router.dart';
 import 'package:snapcut/src/utils/styles.dart';
 
 class UnimplementedTool extends StatelessWidget {
@@ -32,7 +33,7 @@ class UnimplementedTool extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => SnapcutRouter.pop(context),
                     child: Text('utils.ok'.tr()),
                   )
                 ],

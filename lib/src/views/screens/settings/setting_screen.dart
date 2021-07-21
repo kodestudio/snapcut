@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/settings/settings_controller.dart';
+import 'package:snapcut/src/utils/router.dart';
 
 class LanguageOption {
   const LanguageOption(this.name, this.locale);
@@ -25,7 +26,7 @@ class SettingScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => SnapcutRouter.pop(context),
           iconSize: 20,
           icon: const Icon(Icons.arrow_back),
         ),

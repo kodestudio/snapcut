@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snapcut/src/utils/globals.dart';
+import 'package:snapcut/src/utils/router.dart';
 import 'package:snapcut/src/utils/styles.dart';
 import 'package:snapcut/src/views/screens/image_editor/actions/exports/exports_box.dart';
 import 'package:snapcut/src/views/screens/image_editor/actions/tools/tools_box.dart';
@@ -30,7 +31,7 @@ class BottomActionState extends StateNotifier<BottomAction> {
   void showStyles() {
     if (state != BottomAction.styles) {
       if (state == BottomAction.tools || state == BottomAction.exports) {
-        Navigator.pop(Globals.bodyNav.context);
+        SnapcutRouter.pop(Globals.bodyNav.context);
         Future.delayed(Durations.fastest, () {
           state = BottomAction.styles;
         });
@@ -45,7 +46,7 @@ class BottomActionState extends StateNotifier<BottomAction> {
   void showTools() {
     if (state != BottomAction.tools) {
       if (state == BottomAction.exports) {
-        Navigator.pop(Globals.bodyNav.context);
+        SnapcutRouter.pop(Globals.bodyNav.context);
       }
 
       showModalBottomSheet(
@@ -58,7 +59,7 @@ class BottomActionState extends StateNotifier<BottomAction> {
       });
       state = BottomAction.tools;
     } else {
-      Navigator.pop(Globals.bodyNav.context);
+      SnapcutRouter.pop(Globals.bodyNav.context);
       state = BottomAction.none;
     }
   }
@@ -66,7 +67,7 @@ class BottomActionState extends StateNotifier<BottomAction> {
   void showExports() {
     if (state != BottomAction.exports) {
       if (state == BottomAction.tools) {
-        Navigator.pop(Globals.bodyNav.context);
+        SnapcutRouter.pop(Globals.bodyNav.context);
       }
       showModalBottomSheet(
         context: Globals.bodyNav.context,
@@ -78,7 +79,7 @@ class BottomActionState extends StateNotifier<BottomAction> {
       });
       state = BottomAction.exports;
     } else {
-      Navigator.pop(Globals.bodyNav.context);
+      SnapcutRouter.pop(Globals.bodyNav.context);
       state = BottomAction.none;
     }
   }
