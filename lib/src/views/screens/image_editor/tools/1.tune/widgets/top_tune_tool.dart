@@ -101,7 +101,7 @@ class TopTuneTool extends HookConsumerWidget {
           ),
           alignment: Alignment.center,
           child: Text(
-            tuneWithType.typeText,
+            tuneWithType.typeTextWithTuneValue,
             style: Theme.of(context).textTheme.subtitle2,
           ),
         ),

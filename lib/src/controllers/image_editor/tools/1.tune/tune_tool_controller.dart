@@ -32,8 +32,12 @@ class TuneWithType {
     }
   }
 
-  String get typeText => 'imageEditor.tools.tuneChildren.${type.toString().substring(9)}'.tr(
+  String get typeTextWithTuneValue => 'imageEditor.tools.tuneChildren.${type.toString().substring(9)}'.tr(
         args: [tuneValue.toString()],
+      );
+
+  String get typeText => 'imageEditor.tools.tuneChildren.${type.toString().substring(9)}'.tr(
+        args: [''],
       );
 
   TuneWithType(this.tune, this.type);

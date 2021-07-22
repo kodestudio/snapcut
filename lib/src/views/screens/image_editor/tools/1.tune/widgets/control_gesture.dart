@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_control_panel_controller.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
 
 class ControlGesture extends HookConsumerWidget {
@@ -12,6 +13,8 @@ class ControlGesture extends HookConsumerWidget {
     final tuneTool = ref.watch(tuneToolControllerProvider);
     final initPos = useState(0.0);
     final lastValue = useState(0);
+
+    final tuneControlPanelController = ref.watch(tuneControlPanelControllerProvider);
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -33,7 +36,20 @@ class ControlGesture extends HookConsumerWidget {
 
             controller.updateTune(updateValue);
           },
-          onHorizontalDragEnd: (details) {},
+          onVerticalDragStart: (details) {
+            tuneControlPanelController.setInitPos(details.localPosition.dy);
+            tuneControlPanelController.setVisible(true);
+          },
+          onVerticalDragUpdate: (details) {
+            tuneControlPanelController.updateCurrentTuneWithType(tuneTool.tune);
+            tuneControlPanelController.setLocalPosition(details.localPosition.dy);
+            controller.updateType(tuneControlPanelController.currentTuneWithType!.type);
+          },
+          onVerticalDragEnd: (details) {
+            tuneControlPanelController.updateCurrentTuneWithType(tuneTool.tune);
+            tuneControlPanelController.updateLastOffset();
+            tuneControlPanelController.setVisible(false);
+          },
         );
       },
     );

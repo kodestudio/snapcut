@@ -17,18 +17,25 @@ class TuneFilterTool implements FilterTool {
 
   List<double> calculateContrastMatrix(double contrast) {
     final m = List<double>.from(defaultColorMatrix);
-    m[0] = contrast;
-    m[6] = contrast;
-    m[12] = contrast;
+    final data = [
+      [1.0, 0.0, 0.0, 0.0, 0.0],
+      [0.0, 1.0, 0.0, 0.0, 0.0],
+      [0.0, 0.0, 1.0, 0.0, 0.0],
+      [0.0, 0.0, 0.0, 1.0, 0.0],
+    ];
+
+    m[0] = 1 + contrast * 0.5;
+    m[6] = 1 + contrast * 0.5;
+    m[12] = 1 + contrast * 0.5;
     return m;
   }
 
   List<double> calculateSaturationMatrix(double saturation) {
     final m = List<double>.from(defaultColorMatrix);
     final invSat = 1 - saturation;
-    final R = 0.213 * invSat;
-    final G = 0.715 * invSat;
-    final B = 0.072 * invSat;
+    final R = 0.3086 * invSat;
+    final G = 0.6094 * invSat;
+    final B = 0.0820 * invSat;
 
     m[0] = R + saturation;
     m[1] = G;
@@ -52,7 +59,7 @@ class TuneFilterTool implements FilterTool {
             value > 0 ? Colors.white.withOpacity(value / 400) : Colors.black.withOpacity(-value / 150),
             value > 0 ? BlendMode.lighten : BlendMode.darken,
           ),
-          child: child,
+          child: FittedBox(child: child),
         );
       case TuneType.contrast:
         return ColorFiltered(
