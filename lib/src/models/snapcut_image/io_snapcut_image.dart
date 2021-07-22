@@ -31,9 +31,16 @@ class IoSnapcutImage implements SnapcutImage {
   }
 
   @override
-  void openFile(data, List<FilterToolType> filterToolTypes) {
+  void open(data, List<FilterToolType> filterToolTypes) {
     path = data as String;
     this.filterToolTypes = filterToolTypes;
+  }
+
+  @override
+  SnapcutImage clone({List<FilterToolType>? newFilterToolTypes}) {
+    final si = IoSnapcutImage();
+    si.open(path!, newFilterToolTypes ?? filterToolTypes);
+    return si;
   }
 }
 

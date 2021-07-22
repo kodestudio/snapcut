@@ -7,4 +7,6 @@ class HiveId {
   static const typeFilterTool = 5;
   static const toolType = 6;
   static const blendMode = 7;
+  static const tuneTypeFilterTool = 8;
+  static const tuneType = 9;
 }

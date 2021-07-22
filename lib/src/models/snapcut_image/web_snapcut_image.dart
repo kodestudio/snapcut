@@ -30,9 +30,16 @@ class WebSnapcutImage implements SnapcutImage {
   }
 
   @override
-  void openFile(data, List<FilterToolType> filterToolTypes) {
+  void open(data, List<FilterToolType> filterToolTypes) {
     bytes = data as Uint8List;
     this.filterToolTypes = filterToolTypes;
+  }
+
+  @override
+  SnapcutImage clone({List<FilterToolType>? newFilterToolTypes}) {
+    final si = WebSnapcutImage();
+    si.open(bytes!, newFilterToolTypes ?? filterToolTypes);
+    return si;
   }
 }
 

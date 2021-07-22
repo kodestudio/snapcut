@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
+
+class ControlGesture extends HookConsumerWidget {
+  const ControlGesture({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(tuneToolControllerProvider.notifier);
+    final tuneTool = ref.watch(tuneToolControllerProvider);
+    final initPos = useState(0.0);
+    final lastValue = useState(0);
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final oneUnit = constraints.biggest.width / 200;
+        return GestureDetector(
+          onHorizontalDragStart: (details) {
+            initPos.value = details.localPosition.dx;
+            lastValue.value = tuneTool.tuneValue;
+          },
+          onHorizontalDragUpdate: (details) {
+            int updateValue = 0;
+
+            int updateUnit = (details.localPosition.dx - initPos.value) ~/ oneUnit;
+
+            updateValue = lastValue.value + updateUnit;
+
+            if (updateValue < -100) updateValue = -100;
+            if (updateValue > 100) updateValue = 100;
+
+            controller.updateTune(updateValue);
+          },
+          onHorizontalDragEnd: (details) {},
+        );
+      },
+    );
+  }
+}

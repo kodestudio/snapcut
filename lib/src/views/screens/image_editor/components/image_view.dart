@@ -14,17 +14,7 @@ class ImageView extends HookConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Expanded(
-          child: InteractiveViewer(
-            child: Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 56.0),
-              child: const Padding(
-                padding: EdgeInsets.only(left: Insets.l, right: Insets.l, top: Insets.m, bottom: Insets.l),
-                child: EditedImage(),
-              ),
-            ),
-          ),
-        ),
+        const Expanded(child: EditedImage()),
         AnimatedSize(
           child: Container(
             height: state == BottomAction.none ? 0.0 : 80.0,

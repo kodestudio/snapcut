@@ -12,6 +12,8 @@ class SnapcutImageDb {
     Hive.registerAdapter(ColorFilterToolAdapter());
     Hive.registerAdapter(MatrixFilterToolAdapter());
     Hive.registerAdapter(SnapcutImageAdapter());
+    Hive.registerAdapter(TuneTypeAdapter());
+    Hive.registerAdapter(TuneFilterToolAdapter());
     _box = await Hive.openBox('seed_image');
   }
 

@@ -16,9 +16,11 @@ abstract class SnapcutImage {
   @HiveField(1)
   String? path;
   @HiveField(2)
-  late List<FilterToolType> filterToolTypes;
+  late final List<FilterToolType> filterToolTypes;
 
-  void openFile(data, List<FilterToolType> filterToolTypes);
+  void open(data, List<FilterToolType> filterToolTypes);
+
+  SnapcutImage clone({List<FilterToolType>? newFilterToolTypes});
 
   factory SnapcutImage() => getPlatformSnapcutImage();
 

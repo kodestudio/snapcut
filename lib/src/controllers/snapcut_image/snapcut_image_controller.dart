@@ -6,7 +6,6 @@ import 'package:snapcut/src/_internal/universal_picker/universal_picker.dart';
 import 'package:snapcut/src/db/snapcut_db.dart';
 import 'package:snapcut/src/models/filter_tool/.filter.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
-import 'package:snapcut/src/models/filter_tool/tool_type.dart';
 import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 
 final snapcutImageControllerProvider = StateNotifierProvider<SnapcutImageController, SnapcutImage?>((ref) => SnapcutImageController());
@@ -28,30 +27,16 @@ class SnapcutImageController extends StateNotifier<SnapcutImage?> {
     UniversalPicker universalPicker = UniversalPicker();
     await universalPicker.open();
     var si = SnapcutImage();
-    List<FilterToolType> defaultFilter = [
-      FilterToolType(
-        ToolType.tune,
-        [
-          // ColorFilterTool('#FAFF421F', BlendMode.modulate),
-          // ColorFilterTool('#AA00F2F3', BlendMode.modulate),
-          MatrixFilterTool([
-            [1, 0, 0, 0, 0],
-            [0, 1, 0, 0, 0],
-            [0, 0, 1, 0, 0],
-            [0, 0, 0, 1, 0],
-          ]),
-        ],
-      ),
-    ];
+    List<FilterToolType> defaultFilter = [];
     if (kIsWeb) {
       if (universalPicker.uint8list != null) {
-        si.openFile(universalPicker.uint8list!, defaultFilter);
+        si.open(universalPicker.uint8list!, defaultFilter);
 
         state = si;
       }
     } else {
       if (universalPicker.path != null) {
-        si.openFile(universalPicker.path!, defaultFilter);
+        si.open(universalPicker.path!, defaultFilter);
         state = si;
         SnapcutDb.singleton.image.snapcutImage = state;
       }
