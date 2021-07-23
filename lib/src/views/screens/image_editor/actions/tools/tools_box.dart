@@ -14,9 +14,11 @@ class ToolsBox extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      clipBehavior: Clip.none,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       height: kToolsBoxHeight,
-      color: Theme.of(Globals.bodyNav.context).scaffoldBackgroundColor,
+      decoration: BoxDecoration(
+        color: Theme.of(Globals.bodyNav.context).scaffoldBackgroundColor,
+      ),
       child: ScrollbarTheme(
         data: ScrollbarThemeData(
           crossAxisMargin: 0.0,
