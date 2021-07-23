@@ -42,4 +42,4 @@ Chạy thử trên chrome
 - Đa ngôn ngữ.
 
 ## Cấu trúc dự án
-Xem tại file [structure.md](lib/src/structure.md)
+Xem tại file [structure.md](lib/src/README.md)
