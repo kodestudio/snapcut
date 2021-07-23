@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snapcut/src/controllers/image_editor/compare_image_controller.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
 import 'package:snapcut/src/utils/utils.dart';
 
@@ -9,6 +10,7 @@ class TopTuneTool extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tuneWithType = ref.watch(tuneToolControllerProvider);
+    final isCompare = ref.watch(compareImageControllerProvider);
 
     return SafeArea(
       child: SizedBox(
@@ -16,7 +18,7 @@ class TopTuneTool extends HookConsumerWidget {
         child: Column(
           children: [
             _progressBar(context, tuneWithType),
-            _statusBar(context, tuneWithType),
+            _statusBar(context, tuneWithType, isCompare),
           ],
         ),
       ),
@@ -87,11 +89,15 @@ class TopTuneTool extends HookConsumerWidget {
     );
   }
 
-  Widget _statusBar(BuildContext context, TuneWithType tuneWithType) {
+  Widget _statusBar(
+    BuildContext context,
+    TuneWithType tuneWithType,
+    StateController<bool> isCompare,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Container(height: 40.0, width: 40.0, color: Colors.amber),
+        Container(height: 40.0, width: 40.0, color: Colors.transparent),
         Container(
           height: 30.0,
           padding: const EdgeInsets.symmetric(horizontal: Insets.l),
@@ -105,7 +111,17 @@ class TopTuneTool extends HookConsumerWidget {
             style: Theme.of(context).textTheme.subtitle2,
           ),
         ),
-        Container(height: 40.0, width: 40.0, color: Colors.amber),
+        SizedBox(
+          height: 40.0,
+          width: 40.0,
+          child: Center(
+            child: GestureDetector(
+              onTapDown: (_) => isCompare.state = true,
+              onTapUp: (_) => isCompare.state = false,
+              child: const Icon(Icons.compare_outlined),
+            ),
+          ),
+        ),
       ],
     );
   }

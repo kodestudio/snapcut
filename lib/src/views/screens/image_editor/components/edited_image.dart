@@ -6,9 +6,9 @@ import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.d
 import 'package:snapcut/src/utils/utils.dart';
 
 class EditedImage extends HookConsumerWidget {
-  const EditedImage({Key? key, this.overrideImage = false}) : super(key: key);
+  const EditedImage({Key? key, this.isCompareImage = false}) : super(key: key);
 
-  final bool overrideImage;
+  final bool isCompareImage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +22,7 @@ class EditedImage extends HookConsumerWidget {
           padding: const EdgeInsets.only(left: Insets.l, right: Insets.l, top: Insets.m, bottom: Insets.l),
           child: Stack(
             children: [
-              Center(child: (overrideImage ? cloneSnapcutImage.state : snapcutImage).image),
+              Center(child: (isCompareImage == false ? cloneSnapcutImage.state : snapcutImage).image),
             ],
           ),
         ),
