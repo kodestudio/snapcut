@@ -30,7 +30,7 @@ Clone snapcut qua git
 ```
 Chạy thử trên chrome
 ```sh
-    flutter run -d chrome
+    flutter run -d chrome --web-renderer html
 ```
 
 
