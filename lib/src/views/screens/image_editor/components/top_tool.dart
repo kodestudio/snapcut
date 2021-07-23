@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.dart';
@@ -18,22 +19,23 @@ class TopTool extends HookConsumerWidget {
       children: [
         Stack(
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).padding.top + 56.0,
-              width: MediaQuery.of(context).size.width,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Theme.of(context).colorScheme.background.withOpacity(0.2),
-                      Theme.of(context).colorScheme.background.withOpacity(0.0),
-                    ],
+            if (!kIsWeb)
+              SizedBox(
+                height: MediaQuery.of(context).padding.top + 56.0,
+                width: MediaQuery.of(context).size.width,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Theme.of(context).colorScheme.background.withOpacity(0.2),
+                        Theme.of(context).colorScheme.background.withOpacity(0.0),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
             AppBar(
               shadowColor: Colors.transparent,
               backgroundColor: Colors.transparent,

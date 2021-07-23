@@ -43,3 +43,6 @@ Chạy thử trên chrome
 
 ## Cấu trúc dự án
 Xem tại file [structure.md](lib/src/README.md)
+
+## Build
+flutter build web --web-renderer html --release --base-href="/snapcut/"

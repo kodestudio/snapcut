@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/compare_image_controller.dart';
-import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
 import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/widgets/bottom_tune_tool.dart';
 import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/widgets/control_gesture.dart';
 import 'package:snapcut/src/views/screens/image_editor/components/edited_image.dart';

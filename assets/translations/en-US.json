@@ -1,7 +1,7 @@
 {
     "appInfo": {
         "version": "0.0.1",
-        "language": "English"
+        "language": "Tiếng việt"
     },
     "utils": {
         "caution": "Chú ý",
@@ -46,6 +46,15 @@
     "imageEditor": {
         "tools": {
             "tune": "Chỉnh hình ảnh",
+            "tuneChildren": {
+                "brightness": "Độ sáng {}",
+                "contrast": "Độ tương phản {}",
+                "saturation": "Độ bão hòa {}",
+                "ambiance": "Môi trường {}",
+                "hightlights": "Vùng sáng {}",
+                "shadows": "Vùng tối {}",
+                "warmth": "Độ ẩm {}"
+            },
             "details": "Chi tiết",
             "curves": "Đồ thị màu",
             "whiteBalance": "Cân bằng trắng",

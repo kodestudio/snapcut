@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:snapcut/src/_internal/image_processor/image_processor.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool.dart';
 import 'package:snapcut/src/models/image_editor/tools/1.tune/tune_type.dart';
 import 'package:snapcut/src/utils/hive_id.dart';
@@ -17,17 +18,11 @@ class TuneFilterTool implements FilterTool {
 
   List<double> calculateContrastMatrix(double contrast) {
     final m = List<double>.from(defaultColorMatrix);
-    final data = [
-      [0.5, 0.5, 1.0, 0.0, 1.0],
-      [0.5, 0.5, 1.0, 0.0, 10.0],
-      [0.5, 0.5, 1.0, 0.0, 0.0],
-      [0.0, 0.0, 0.0, 1.0, 0.0],
-    ];
 
     m[0] = 1 + contrast * 0.5;
     m[6] = 1 + contrast * 0.5;
     m[12] = 1 + contrast * 0.5;
-    return data.expand((e) => e).toList();
+    return m;
   }
 
   List<double> calculateSaturationMatrix(double saturation) {
@@ -55,20 +50,17 @@ class TuneFilterTool implements FilterTool {
     switch (type) {
       case TuneType.brightness:
         return ColorFiltered(
-          colorFilter: ColorFilter.mode(
-            value > 0 ? Colors.white.withOpacity(value / 100) : Colors.black.withOpacity(-value / 150),
-            value > 0 ? BlendMode.softLight : BlendMode.colorBurn,
-          ),
+          colorFilter: ImageProcessor.brightness(value),
           child: child,
         );
       case TuneType.contrast:
         return ColorFiltered(
-          colorFilter: ColorFilter.matrix(calculateContrastMatrix(value / 100)),
+          colorFilter: ImageProcessor.contrast(value),
           child: child,
         );
       case TuneType.saturation:
         return ColorFiltered(
-          colorFilter: ColorFilter.matrix(calculateSaturationMatrix(value / 100)),
+          colorFilter: ImageProcessor.saturation(value),
           child: child,
         );
       default:
@@ -76,17 +68,3 @@ class TuneFilterTool implements FilterTool {
     }
   }
 }
-
-extension ListTuneFilterX on List<FilterTool> {
-  bool containTuneFilter(TuneType type) {
-    bool res = false;
-    for (var filter in this) {
-      if (filter is TuneFilterTool) {
-        res = filter.type == type;
-      }
-    }
-    return res;
-  }
-}
-
-const defaultColorMatrix = <double>[1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];

@@ -10,8 +10,9 @@ class BottomTuneTool extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tuneControlPanelController = ref.watch(tuneControlPanelControllerProvider);
-    final cloneImage = ref.read(cloneSnapcutImageControllerProvider);
+    final cloneImageController = ref.watch(cloneSnapcutImageControllerProvider.notifier);
     final mainImageController = ref.watch(snapcutImageControllerProvider.notifier);
+    final mainImage = ref.watch(snapcutImageControllerProvider);
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -23,7 +24,10 @@ class BottomTuneTool extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () {
+                cloneImageController.state = mainImage!.clone();
+                Navigator.pop(context);
+              },
               child: const SizedBox(height: 40.0, width: 40.0, child: Center(child: Icon(Icons.close_outlined))),
             ),
             GestureDetector(
@@ -32,7 +36,7 @@ class BottomTuneTool extends HookConsumerWidget {
             ),
             GestureDetector(
               onTap: () {
-                mainImageController.saveImage(cloneImage.state);
+                mainImageController.saveImage(cloneImageController.state);
                 Navigator.pop(context);
               },
               child: const SizedBox(height: 40.0, width: 40.0, child: Center(child: Icon(Icons.check_outlined))),
