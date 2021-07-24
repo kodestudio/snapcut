@@ -2,46 +2,39 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+/// BlendMode flutter web don't support:
+/// [BlendMode.overlay]
+
 class ImageProcessor {
   static ColorFilter brightness(int value) {
-    var m = List<double>.from(defaultColorMatrix);
     if (kIsWeb) {
-      m[4] = value / 100 * 0.18;
-      m[9] = value / 100 * 0.18;
-      m[14] = value / 100 * 0.18;
-    } else {
-      m[4] = value / 100 * 50;
-      m[9] = value / 100 * 50;
-      m[14] = value / 100 * 50;
+      var m = List<double>.from(defaultColorMatrix);
+      if (value > 0) {
+        m[4] = value / 100 * 0.1;
+        m[9] = value / 100 * 0.1;
+        m[14] = value / 100 * 0.1;
+      } else {
+        m[4] = value / 100 * 0.18;
+        m[9] = value / 100 * 0.18;
+        m[14] = value / 100 * 0.18;
+      }
+      return ColorFilter.matrix(m);
     }
-    return ColorFilter.matrix(m);
+
+    return ColorFilter.mode(
+      value > 0 ? const Color(0xFFEEEEEE).withOpacity(value / 110) : Colors.black12.withOpacity(-value / 150),
+      value > 0 ? BlendMode.overlay : BlendMode.srcATop,
+    );
   }
 
   static ColorFilter contrast(int value) {
-    final contrast = value / 100;
+    final contrast = 1 + value / (value > 0 ? 200 : 200);
+
     final m = List<double>.from(defaultColorMatrix);
 
-    if (kIsWeb) {
-      if (contrast < 0) {
-        m[0] = 1 + contrast * 0.65;
-        m[6] = 1 + contrast * 0.65;
-        m[12] = 1 + contrast * 0.65;
-      } else {
-        m[0] = 1 + contrast * 0.65;
-        m[6] = 1 + contrast * 0.65;
-        m[12] = 1 + contrast * 0.65;
-      }
-    } else {
-      if (contrast < 0) {
-        m[0] = 1 + contrast * 0.65;
-        m[6] = 1 + contrast * 0.65;
-        m[12] = 1 + contrast * 0.65;
-      } else {
-        m[0] = 1 + contrast * 0.75;
-        m[6] = 1 + contrast * 0.75;
-        m[12] = 1 + contrast * 0.75;
-      }
-    }
+    m[0] = contrast;
+    m[6] = contrast;
+    m[12] = contrast;
 
     return ColorFilter.matrix(m);
   }
@@ -70,10 +63,8 @@ class ImageProcessor {
     return ColorFilter.matrix(m);
   }
 
-  // TODO: missing implement filter
-  static ColorFilter ambition(int value) {
-    return const ColorFilter.matrix(defaultColorMatrix);
-  }
+  // Must implement in widget level
+  static ColorFilter ambition(int value) => const ColorFilter.matrix(defaultColorMatrix);
 
   // TODO: missing implement filter
   static ColorFilter hightlights(int value) => const ColorFilter.matrix(defaultColorMatrix);

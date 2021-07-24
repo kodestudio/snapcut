@@ -9,8 +9,6 @@ class SnapcutImageDb {
     Hive.registerAdapter(BlendModeAdapter());
     Hive.registerAdapter(ToolTypeAdapter());
     Hive.registerAdapter(FilterToolTypeAdapter());
-    Hive.registerAdapter(ColorFilterToolAdapter());
-    Hive.registerAdapter(MatrixFilterToolAdapter());
     Hive.registerAdapter(SnapcutImageAdapter());
     Hive.registerAdapter(TuneTypeAdapter());
     Hive.registerAdapter(TuneFilterToolAdapter());

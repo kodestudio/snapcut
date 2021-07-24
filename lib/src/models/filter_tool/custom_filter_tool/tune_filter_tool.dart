@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:snapcut/src/_internal/image_processor/image_processor.dart';
@@ -57,6 +58,16 @@ class TuneFilterTool implements FilterTool {
 
     switch (type) {
       case TuneType.brightness:
+        if (kIsWeb) {
+          return Container(
+            foregroundDecoration: BoxDecoration(
+              color: value > 0 ? const Color(0xFFEEEEEE).withOpacity(value / 110) : Colors.black12.withOpacity(-value / 150),
+              backgroundBlendMode: value > 0 ? BlendMode.overlay : BlendMode.srcATop,
+            ),
+            child: child,
+          );
+        }
+
         return ColorFiltered(
           colorFilter: ImageProcessor.brightness(value),
           child: child,
@@ -72,28 +83,42 @@ class TuneFilterTool implements FilterTool {
           child: child,
         );
       case TuneType.ambiance:
-        return ImageFiltered(
-          imageFilter: ImageProcessor.ambition(value),
-          child: child,
+        // Biến đổi gamma
+        return Stack(
+          children: [
+            child,
+            value > 0
+                ? Opacity(
+                    opacity: value / 100 * 0.7,
+                    child: ColorFiltered(
+                      colorFilter: const ColorFilter.linearToSrgbGamma(),
+                      child: child,
+                    ),
+                  )
+                : Opacity(
+                    opacity: -value / 100 * 0.7,
+                    child: ColorFiltered(
+                      colorFilter: const ColorFilter.srgbToLinearGamma(),
+                      child: child,
+                    ),
+                  ),
+          ],
         );
       case TuneType.hightlights:
-        return ImageFiltered(
-          imageFilter: ImageProcessor.hightlights(value),
+        return ColorFiltered(
+          colorFilter: ImageProcessor.hightlights(value),
           child: child,
         );
       case TuneType.shadows:
-        return ImageFiltered(
-          imageFilter: ImageProcessor.shadows(value),
+        return ColorFiltered(
+          colorFilter: ImageProcessor.shadows(value),
           child: child,
         );
       case TuneType.warmth:
-        return ImageFiltered(
-          imageFilter: ImageProcessor.warmth(value),
+        return ColorFiltered(
+          colorFilter: ImageProcessor.warmth(value),
           child: child,
         );
-
-      default:
-        return child;
     }
   }
 }
