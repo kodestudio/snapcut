@@ -15,7 +15,7 @@ class BottomActionBar extends HookConsumerWidget {
       height: 48.0,
       width: 400.0,
       child: DecoratedBox(
-        decoration: const BoxDecoration(border: Border(top: BorderSide(color: Colors.grey, width: 0.5))),
+        decoration: const BoxDecoration(border: Border(top: BorderSide(color: Colors.grey, width: 0.25))),
         child: Row(
           children: [
             Expanded(

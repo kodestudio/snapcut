@@ -87,7 +87,7 @@ class TuneControlPanel extends HookConsumerWidget {
               width: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Insets.m / 2),
-                color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
+                color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

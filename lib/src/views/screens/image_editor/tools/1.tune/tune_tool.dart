@@ -23,7 +23,10 @@ class TuneTool extends HookConsumerWidget {
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [
-              EditedImage(isCompareImage: isCompare.state),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 48.0),
+                child: EditedImage(isCompareImage: isCompare.state),
+              ),
               const ControlGesture(),
               const TopTuneTool(),
               const BottomTuneTool(),

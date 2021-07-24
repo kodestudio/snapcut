@@ -17,7 +17,7 @@ class BottomTuneTool extends HookConsumerWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: 40.0,
+        height: 48.0,
         width: double.maxFinite,
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Row(
@@ -28,18 +28,18 @@ class BottomTuneTool extends HookConsumerWidget {
                 cloneImageController.state = mainImage!.clone();
                 Navigator.pop(context);
               },
-              child: const SizedBox(height: 40.0, width: 40.0, child: Center(child: Icon(Icons.close_outlined))),
+              child: const SizedBox(height: 48.0, width: 48.0, child: Center(child: Icon(Icons.close_outlined))),
             ),
             GestureDetector(
               onTap: () => tuneControlPanelController.setVisible(true),
-              child: const SizedBox(height: 40.0, width: 40.0, child: Center(child: Icon(Icons.tune_outlined))),
+              child: const SizedBox(height: 48.0, width: 48.0, child: Center(child: Icon(Icons.tune_outlined))),
             ),
             GestureDetector(
               onTap: () {
                 mainImageController.saveImage(cloneImageController.state);
                 Navigator.pop(context);
               },
-              child: const SizedBox(height: 40.0, width: 40.0, child: Center(child: Icon(Icons.check_outlined))),
+              child: const SizedBox(height: 48.0, width: 48.0, child: Center(child: Icon(Icons.check_outlined))),
             ),
           ],
         ),

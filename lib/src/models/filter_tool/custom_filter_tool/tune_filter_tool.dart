@@ -47,6 +47,14 @@ class TuneFilterTool implements FilterTool {
 
   @override
   Widget filter(Widget child) {
+    // TuneType.brightness
+    // TuneType.contrast
+    // TuneType.saturation
+    // TuneType.ambiance
+    // TuneType.hightlights
+    // TuneType.shadows
+    // TuneType.warmth
+
     switch (type) {
       case TuneType.brightness:
         return ColorFiltered(
@@ -63,6 +71,27 @@ class TuneFilterTool implements FilterTool {
           colorFilter: ImageProcessor.saturation(value),
           child: child,
         );
+      case TuneType.ambiance:
+        return ImageFiltered(
+          imageFilter: ImageProcessor.ambition(value),
+          child: child,
+        );
+      case TuneType.hightlights:
+        return ImageFiltered(
+          imageFilter: ImageProcessor.hightlights(value),
+          child: child,
+        );
+      case TuneType.shadows:
+        return ImageFiltered(
+          imageFilter: ImageProcessor.shadows(value),
+          child: child,
+        );
+      case TuneType.warmth:
+        return ImageFiltered(
+          imageFilter: ImageProcessor.warmth(value),
+          child: child,
+        );
+
       default:
         return child;
     }

@@ -9,13 +9,5 @@
             "request": "launch",
             "type": "dart"
         },
-        {
-            "name": "snapcut (Web)",
-            "request": "launch",
-            "type": "dart",
-            "args": [
-                "--web-renderer html"
-            ]
-        }
     ]
 }

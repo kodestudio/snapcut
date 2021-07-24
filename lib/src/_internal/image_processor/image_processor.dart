@@ -1,13 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ImageProcessor {
   static ColorFilter brightness(int value) {
     var m = List<double>.from(defaultColorMatrix);
-    m[4] = value / 100 * 150;
-    m[9] = value / 100 * 150;
-    m[14] = value / 100 * 150;
-
+    if (kIsWeb) {
+      m[4] = value / 100 * 0.18;
+      m[9] = value / 100 * 0.18;
+      m[14] = value / 100 * 0.18;
+    } else {
+      m[4] = value / 100 * 50;
+      m[9] = value / 100 * 50;
+      m[14] = value / 100 * 50;
+    }
     return ColorFilter.matrix(m);
   }
 
@@ -15,9 +21,27 @@ class ImageProcessor {
     final contrast = value / 100;
     final m = List<double>.from(defaultColorMatrix);
 
-    m[0] = 1 + contrast * 0.5;
-    m[6] = 1 + contrast * 0.5;
-    m[12] = 1 + contrast * 0.5;
+    if (kIsWeb) {
+      if (contrast < 0) {
+        m[0] = 1 + contrast * 0.65;
+        m[6] = 1 + contrast * 0.65;
+        m[12] = 1 + contrast * 0.65;
+      } else {
+        m[0] = 1 + contrast * 0.65;
+        m[6] = 1 + contrast * 0.65;
+        m[12] = 1 + contrast * 0.65;
+      }
+    } else {
+      if (contrast < 0) {
+        m[0] = 1 + contrast * 0.65;
+        m[6] = 1 + contrast * 0.65;
+        m[12] = 1 + contrast * 0.65;
+      } else {
+        m[0] = 1 + contrast * 0.75;
+        m[6] = 1 + contrast * 0.75;
+        m[12] = 1 + contrast * 0.75;
+      }
+    }
 
     return ColorFilter.matrix(m);
   }
@@ -45,6 +69,20 @@ class ImageProcessor {
 
     return ColorFilter.matrix(m);
   }
+
+  // TODO: missing implement filter
+  static ColorFilter ambition(int value) {
+    return const ColorFilter.matrix(defaultColorMatrix);
+  }
+
+  // TODO: missing implement filter
+  static ColorFilter hightlights(int value) => const ColorFilter.matrix(defaultColorMatrix);
+
+  // TODO: missing implement filter
+  static ColorFilter shadows(int value) => const ColorFilter.matrix(defaultColorMatrix);
+
+  // TODO: missing implement filter
+  static ColorFilter warmth(int value) => const ColorFilter.matrix(defaultColorMatrix);
 }
 
 const defaultColorMatrix = <double>[1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];
