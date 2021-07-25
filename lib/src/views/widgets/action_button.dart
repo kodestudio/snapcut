@@ -7,17 +7,17 @@ class ActionButton extends ConsumerWidget {
   const ActionButton({
     Key? key,
     required this.text,
-    required this.action,
+    required this.state,
     required this.onPressed,
   }) : super(key: key);
 
   final String text;
-  final BottomAction action;
+  final ActionState state;
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(bottomActionStateProvider);
+    final currentState = ref.watch(actionStateControllerProvider);
 
     return SizedBox(
       height: 48.0,
@@ -26,7 +26,7 @@ class ActionButton extends ConsumerWidget {
           shape: MaterialStateProperty.all(const RoundedRectangleBorder()),
           minimumSize: MaterialStateProperty.all(const Size(48.0, 48.0)),
           foregroundColor: MaterialStateProperty.all(
-            state == action ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onBackground,
+            currentState == state ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onBackground,
           ),
         ),
         onPressed: onPressed,

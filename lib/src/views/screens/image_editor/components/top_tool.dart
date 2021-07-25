@@ -19,23 +19,22 @@ class TopTool extends HookConsumerWidget {
       children: [
         Stack(
           children: [
-            if (!kIsWeb)
-              SizedBox(
-                height: MediaQuery.of(context).padding.top + 56.0,
-                width: MediaQuery.of(context).size.width,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Theme.of(context).colorScheme.background.withOpacity(0.2),
-                        Theme.of(context).colorScheme.background.withOpacity(0.0),
-                      ],
-                    ),
+            SizedBox(
+              height: MediaQuery.of(context).padding.top + 56.0,
+              width: MediaQuery.of(context).size.width,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Theme.of(context).colorScheme.background.withOpacity(0.2),
+                      Theme.of(context).colorScheme.background.withOpacity(0.0),
+                    ],
                   ),
                 ),
               ),
+            ),
             AppBar(
               shadowColor: Colors.transparent,
               backgroundColor: Colors.transparent,

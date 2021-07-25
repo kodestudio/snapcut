@@ -12,6 +12,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsControllerProvider);
 
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,

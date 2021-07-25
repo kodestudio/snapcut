@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Durations {
   static const Duration fastest = Duration(milliseconds: 150);
@@ -21,6 +20,28 @@ class PageBreaks {
   static double get tabletLandscape => 1024;
 
   static double get desktop => 1440;
+}
+
+extension AppSize on BuildContext {
+  Size get screenSize => MediaQuery.of(this).size;
+}
+
+extension Responsive on Size {
+  bool get isSmallPhone => width < PageBreaks.largePhone;
+  bool get isBiggerSmallPhone => width >= PageBreaks.largePhone;
+
+  bool get isLargePhone => width >= PageBreaks.largePhone && width < PageBreaks.tabletPortrait;
+  bool get isBiggerLargePhone => width >= PageBreaks.tabletPortrait;
+
+  bool get isTabletPortrait => width >= PageBreaks.tabletPortrait && width < PageBreaks.tabletLandscape;
+  bool get isBiggerTabletPortrait => width >= PageBreaks.tabletLandscape;
+
+  bool get isTabletLandscape => width >= PageBreaks.tabletLandscape && width < PageBreaks.desktop;
+
+  /// Same as isDesktop
+  bool get isBiggerTabletLandscape => width >= PageBreaks.desktop;
+
+  bool get isDesktop => width >= PageBreaks.desktop;
 }
 
 class Insets {

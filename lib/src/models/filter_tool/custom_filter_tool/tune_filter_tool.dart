@@ -97,14 +97,9 @@ class TuneFilterTool implements FilterTool {
                   )
                 : Opacity(
                     opacity: -value / 100 * 0.7,
-                    child: Container(
-                      foregroundDecoration: BoxDecoration(
-                        color: Colors.transparent,
-                      ),
-                      child: ColorFiltered(
-                        colorFilter: const ColorFilter.srgbToLinearGamma(),
-                        child: child,
-                      ),
+                    child: ColorFiltered(
+                      colorFilter: const ColorFilter.srgbToLinearGamma(),
+                      child: child,
                     ),
                   ),
           ],

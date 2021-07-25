@@ -5,7 +5,7 @@ import 'package:snapcut/src/utils/globals.dart';
 import 'package:snapcut/src/utils/styles.dart';
 import 'package:snapcut/src/views/screens/image_editor/actions/tools/tool_grid_tile.dart';
 
-const double kToolsBoxHeight = 497.0;
+const double kToolsBox = 497.0;
 
 @immutable
 class ToolsBox extends HookConsumerWidget {
@@ -15,7 +15,7 @@ class ToolsBox extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      height: kToolsBoxHeight,
+      height: kToolsBox,
       decoration: BoxDecoration(
         color: Theme.of(Globals.bodyNav.context).scaffoldBackgroundColor,
       ),

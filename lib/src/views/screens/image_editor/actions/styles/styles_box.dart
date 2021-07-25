@@ -3,27 +3,27 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
 import 'package:snapcut/src/utils/styles.dart';
 
-const double kStylesBoxHeight = 112.0;
+const double kStylesBox = 112.0;
 
 class StylesBox extends HookConsumerWidget {
   const StylesBox({Key? key}) : super(key: key);
 
-  double _position(BottomAction state) {
+  double _position(ActionState state) {
     switch (state) {
-      case BottomAction.none:
-        return -kStylesBoxHeight;
-      case BottomAction.styles:
+      case ActionState.none:
+        return -kStylesBox;
+      case ActionState.styles:
         return 0.0;
-      case BottomAction.tools:
-        return -kStylesBoxHeight;
-      case BottomAction.exports:
-        return -kStylesBoxHeight;
+      case ActionState.tools:
+        return -kStylesBox;
+      case ActionState.exports:
+        return -kStylesBox;
     }
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(bottomActionStateProvider);
+    final state = ref.watch(actionStateControllerProvider);
 
     return AnimatedPositioned(
       curve: Curves.linearToEaseOut,

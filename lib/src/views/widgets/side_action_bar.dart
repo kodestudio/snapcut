@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
 import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.dart';
+
+const kSideActionBar = 56.0;
+
+//TODO: Waiting final design for desktop screen
 
 class SideActionBar extends HookConsumerWidget {
   const SideActionBar({Key? key}) : super(key: key);
@@ -9,9 +14,11 @@ class SideActionBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final snapcutImageController = ref.watch(snapcutImageControllerProvider.notifier);
+    final controller = ref.watch(actionStateControllerProvider.notifier);
 
-    return SizedBox(
-      width: 80.0,
+    return Container(
+      decoration: BoxDecoration(border: Border(right: BorderSide(color: Theme.of(context).disabledColor, width: 0.5))),
+      width: kSideActionBar,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -29,17 +36,17 @@ class SideActionBar extends HookConsumerWidget {
           ),
           IconButton(
             icon: const Icon(Icons.style_outlined),
-            onPressed: () {},
+            onPressed: () => controller.showStyles(),
             tooltip: 'home.bottom.styles'.tr(),
           ),
           IconButton(
             icon: const Icon(Icons.construction_outlined),
-            onPressed: () {},
+            onPressed: () => controller.showTools(),
             tooltip: 'home.bottom.tools'.tr(),
           ),
           IconButton(
             icon: const Icon(Icons.file_download_outlined),
-            onPressed: () {},
+            onPressed: () => controller.showExports(),
             tooltip: 'home.bottom.exports'.tr(),
           ),
           TextButton(

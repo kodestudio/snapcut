@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
-import 'package:snapcut/src/views/widgets/bottom/action_button.dart';
+import 'package:snapcut/src/views/widgets/action_button.dart';
 
 class BottomActionBar extends HookConsumerWidget {
   const BottomActionBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bottomTools = ref.watch(bottomActionStateProvider.notifier);
+    final controller = ref.watch(actionStateControllerProvider.notifier);
     const basePath = 'home.bottom';
 
     return SizedBox(
@@ -21,27 +21,27 @@ class BottomActionBar extends HookConsumerWidget {
             Expanded(
               child: ActionButton(
                 text: '$basePath.styles',
-                action: BottomAction.styles,
+                state: ActionState.styles,
                 onPressed: () {
-                  bottomTools.showStyles();
+                  controller.showStyles();
                 },
               ),
             ),
             Expanded(
               child: ActionButton(
                 text: '$basePath.tools',
-                action: BottomAction.tools,
+                state: ActionState.tools,
                 onPressed: () {
-                  bottomTools.showTools();
+                  controller.showTools();
                 },
               ),
             ),
             Expanded(
               child: ActionButton(
                 text: '$basePath.exports',
-                action: BottomAction.exports,
+                state: ActionState.exports,
                 onPressed: () {
-                  bottomTools.showExports();
+                  controller.showExports();
                 },
               ),
             ),

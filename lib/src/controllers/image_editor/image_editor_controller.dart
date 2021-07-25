@@ -6,22 +6,22 @@ import 'package:snapcut/src/utils/styles.dart';
 import 'package:snapcut/src/views/screens/image_editor/actions/exports/exports_box.dart';
 import 'package:snapcut/src/views/screens/image_editor/actions/tools/tools_box.dart';
 
-final bottomActionStateProvider = StateNotifierProvider<BottomActionState, BottomAction>((ref) => BottomActionState());
+final actionStateControllerProvider = StateNotifierProvider<ActionStateController, ActionState>((ref) => ActionStateController());
 
-enum BottomAction { none, styles, tools, exports }
+enum ActionState { none, styles, tools, exports }
 
-class BottomActionState extends StateNotifier<BottomAction> {
-  BottomActionState() : super(BottomAction.none);
+class ActionStateController extends StateNotifier<ActionState> {
+  ActionStateController() : super(ActionState.none);
 
-  void show(BottomAction action) {
+  void show(ActionState action) {
     switch (action) {
-      case BottomAction.styles:
+      case ActionState.styles:
         showStyles();
         break;
-      case BottomAction.tools:
+      case ActionState.tools:
         showTools();
         break;
-      case BottomAction.exports:
+      case ActionState.exports:
         showExports();
         break;
       default:
@@ -29,23 +29,23 @@ class BottomActionState extends StateNotifier<BottomAction> {
   }
 
   void showStyles() {
-    if (state != BottomAction.styles) {
-      if (state == BottomAction.tools || state == BottomAction.exports) {
+    if (state != ActionState.styles) {
+      if (state == ActionState.tools || state == ActionState.exports) {
         SnapcutRouter.pop(Globals.bodyNav.context);
         Future.delayed(Durations.fastest, () {
-          state = BottomAction.styles;
+          state = ActionState.styles;
         });
       } else {
-        state = BottomAction.styles;
+        state = ActionState.styles;
       }
     } else {
-      state = BottomAction.none;
+      state = ActionState.none;
     }
   }
 
   void showTools() {
-    if (state != BottomAction.tools) {
-      if (state == BottomAction.exports) {
+    if (state != ActionState.tools) {
+      if (state == ActionState.exports) {
         SnapcutRouter.pop(Globals.bodyNav.context);
       }
 
@@ -53,34 +53,34 @@ class BottomActionState extends StateNotifier<BottomAction> {
         context: Globals.bodyNav.context,
         builder: (_) => const ToolsBox(),
       ).then((_) {
-        if (state == BottomAction.tools) {
-          state = BottomAction.none;
+        if (state == ActionState.tools) {
+          state = ActionState.none;
         }
       });
-      state = BottomAction.tools;
+      state = ActionState.tools;
     } else {
       SnapcutRouter.pop(Globals.bodyNav.context);
-      state = BottomAction.none;
+      state = ActionState.none;
     }
   }
 
   void showExports() {
-    if (state != BottomAction.exports) {
-      if (state == BottomAction.tools) {
+    if (state != ActionState.exports) {
+      if (state == ActionState.tools) {
         SnapcutRouter.pop(Globals.bodyNav.context);
       }
       showModalBottomSheet(
         context: Globals.bodyNav.context,
         builder: (_) => const ExportsBox(),
       ).then((_) {
-        if (state == BottomAction.exports) {
-          state = BottomAction.none;
+        if (state == ActionState.exports) {
+          state = ActionState.none;
         }
       });
-      state = BottomAction.exports;
+      state = ActionState.exports;
     } else {
       SnapcutRouter.pop(Globals.bodyNav.context);
-      state = BottomAction.none;
+      state = ActionState.none;
     }
   }
 }

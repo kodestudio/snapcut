@@ -7,8 +7,7 @@ import 'package:snapcut/src/utils/globals.dart';
 import 'package:snapcut/src/utils/styles.dart';
 import 'package:snapcut/src/views/screens/image_editor/image_editor_screen.dart';
 import 'package:snapcut/src/views/screens/image_editor/components/top_tool.dart';
-import 'package:snapcut/src/views/widgets/bottom/bottom_action_bar.dart';
-import 'package:snapcut/src/views/widgets/side/side_action_bar.dart';
+import 'package:snapcut/src/views/widgets/bottom_action_bar.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,11 +17,9 @@ class HomeScreen extends HookConsumerWidget {
     final snapcutImage = ref.watch(snapcutImageControllerProvider);
 
     if (snapcutImage == null) return const EmptyScreen();
-
     return Scaffold(
       body: Row(
         children: [
-          if (MediaQuery.of(context).size.width > PageBreaks.tabletLandscape) const SideActionBar(),
           Expanded(
             child: Navigator(
               key: Globals.bodyNav,
@@ -34,7 +31,7 @@ class HomeScreen extends HookConsumerWidget {
           ),
         ],
       ),
-      bottomNavigationBar: MediaQuery.of(context).size.width > PageBreaks.tabletLandscape ? null : const BottomActionBar(),
+      bottomNavigationBar: const BottomActionBar(),
     );
   }
 }
@@ -44,7 +41,7 @@ class EmptyScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final snapcutImageCtl = ref.watch(snapcutImageControllerProvider.notifier);
+    final snapcutImageController = ref.watch(snapcutImageControllerProvider.notifier);
     return Scaffold(
       body: Column(
         children: [
@@ -52,7 +49,7 @@ class EmptyScreen extends HookConsumerWidget {
           Expanded(
             child: GestureDetector(
               onTap: () {
-                snapcutImageCtl.openImage();
+                snapcutImageController.openImage();
               },
               child: Container(
                 color: Colors.transparent,
