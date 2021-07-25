@@ -1,5 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 class Durations {
   static const Duration fastest = Duration(milliseconds: 150);
 
@@ -11,13 +14,13 @@ class Durations {
 }
 
 class PageBreaks {
-  static double get LargePhone => 550;
+  static double get largePhone => 550;
 
-  static double get TabletPortrait => 768;
+  static double get tabletPortrait => 768;
 
-  static double get TabletLandscape => 1024;
+  static double get tabletLandscape => 1024;
 
-  static double get Desktop => 1440;
+  static double get desktop => 1440;
 }
 
 class Insets {

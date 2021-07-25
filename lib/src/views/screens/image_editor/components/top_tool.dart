@@ -13,7 +13,7 @@ class TopTool extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final snapcutImageCtl = ref.watch(snapcutImageControllerProvider.notifier);
+    final snapcutImageController = ref.watch(snapcutImageControllerProvider.notifier);
 
     return Column(
       children: [
@@ -50,9 +50,7 @@ class TopTool extends HookConsumerWidget {
                       Theme.of(context).colorScheme.onBackground,
                     ),
                   ),
-                  onPressed: () {
-                    snapcutImageCtl.openImage();
-                  },
+                  onPressed: () => snapcutImageController.openImage(),
                   child: Text('home.top.open'.tr()),
                 ),
               ),

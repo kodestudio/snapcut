@@ -18,10 +18,7 @@ Cài đặt Flutter qua git
 ```sh
     git clone https://github.com/flutter/flutter.git
 ```
-Chạy lệnh
-```sh
-    flutter upgrade
-```
+Mọi config liên quan trên từng hệ điều hành xem thêm tại: [Flutter](https://flutter.dev/docs/get-started/install)
 ### Cài đặt snapcut
 Clone snapcut qua git
 ```sh
