@@ -6,7 +6,9 @@
     "utils": {
         "caution": "Chú ý",
         "cancel": "Hủy",
-        "ok": "Đồng ý"
+        "ok": "Đồng ý",
+        "apply": "Áp dụng",
+        "minimize": "Thu gọn"
     },
     "home": {
         "top": {
@@ -102,5 +104,18 @@
                 "desc": "Tạo bản sao trong thư mục đã chọn."
             }
         }
+    },
+    "presets": {
+        "portrait": "Portrait",
+        "smooth": "Smooth",
+        "pop": "Pop",
+        "accenture": "Accenture",
+        "fadedGlow": "Faded glow",
+        "morning": "Morning",
+        "bright": "Bright",
+        "fineArt": "Fine Art",
+        "push": "Push",
+        "structure": "Structure",
+        "silhouette": "Silhouette"
     }
 }

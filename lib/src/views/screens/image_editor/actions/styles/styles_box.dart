@@ -1,39 +1,103 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
-import 'package:snapcut/src/utils/styles.dart';
+import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
+import 'package:snapcut/src/models/filter_tool/preset_filter_tool.dart';
+import 'package:snapcut/src/models/filter_tool/.filter.dart';
+import 'package:snapcut/src/views/screens/image_editor/actions/styles/styled_image.dart';
 
 const double kStylesBox = 112.0;
 
-class StylesBox extends HookConsumerWidget {
+class StylesBox extends StatelessWidget {
   const StylesBox({Key? key}) : super(key: key);
 
-  double _position(ActionState state) {
-    switch (state) {
-      case ActionState.none:
-        return -kStylesBox;
-      case ActionState.styles:
-        return 0.0;
-      case ActionState.tools:
-        return -kStylesBox;
-      case ActionState.exports:
-        return -kStylesBox;
-    }
-  }
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(actionStateControllerProvider);
-
-    return AnimatedPositioned(
-      curve: Curves.linearToEaseOut,
-      duration: Durations.fast,
-      bottom: _position(state),
-      child: Container(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        height: 80.0,
-        width: MediaQuery.of(context).size.width,
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      height: kStylesBox,
+      width: MediaQuery.of(context).size.width,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: presetFilterTools
+            .map<Widget>(
+              (e) => StyledImage(preset: e),
+            )
+            .toList(),
       ),
     );
   }
 }
+
+List<PresetFilterTool> presetFilterTools = [
+  const PresetFilterTool(
+    name: 'presets.portrait',
+    filterToolType: [
+      FilterToolType(ToolType.tune, [
+        TuneFilterTool(TuneType.brightness, 70),
+        TuneFilterTool(TuneType.ambiance, 70),
+        TuneFilterTool(TuneType.contrast, 40),
+        TuneFilterTool(TuneType.warmth, 30),
+        TuneFilterTool(TuneType.saturation, 50),
+      ]),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.smooth',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.pop',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.accenture',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.fadedGlow',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.morning',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.bright',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.fineArt',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.push',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.structure',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+  const PresetFilterTool(
+    name: 'presets.silhouette',
+    filterToolType: [
+      FilterToolType(ToolType.tune, []),
+    ],
+  ),
+];

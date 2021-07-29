@@ -28,15 +28,12 @@ class ImageProcessor {
   }
 
   static ColorFilter contrast(int value) {
-    final contrast = 1 + value / (value > 0 ? 200 : 200);
+    final contrast = value / 250;
 
-    final m = List<double>.from(defaultColorMatrix);
+    double scale = contrast + 1.0;
+    double translate = (-.5 * scale + .5) * 255.0;
 
-    m[0] = contrast;
-    m[6] = contrast;
-    m[12] = contrast;
-
-    return ColorFilter.matrix(m);
+    return ColorFilter.matrix([scale, 0, 0, 0, translate, 0, scale, 0, 0, translate, 0, 0, scale, 0, translate, 0, 0, 0, 1, 0]);
   }
 
   static ColorFilter saturation(int value) {
@@ -72,8 +69,12 @@ class ImageProcessor {
   // TODO: missing implement filter
   static ColorFilter shadows(int value) => const ColorFilter.matrix(defaultColorMatrix);
 
-  // TODO: missing implement filter
-  static ColorFilter warmth(int value) => const ColorFilter.matrix(defaultColorMatrix);
+  static ColorFilter warmth(int value) => ColorFilter.matrix([
+        <double>[1, 0, 0, 0, 60 * value / 200],
+        <double>[0, 1, 0, 0, 45 * value / 200],
+        <double>[0, 0, 1, 0, -20 * value / 200],
+        <double>[0, 0, 0, 1, 0]
+      ].expand((e) => e).toList());
 }
 
 const defaultColorMatrix = <double>[1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0];

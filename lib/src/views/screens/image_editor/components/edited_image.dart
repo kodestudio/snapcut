@@ -6,9 +6,10 @@ import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.d
 import 'package:snapcut/src/utils/utils.dart';
 
 class EditedImage extends HookConsumerWidget {
-  const EditedImage({Key? key, this.isCompareImage = false}) : super(key: key);
+  const EditedImage({Key? key, this.isCompareImage = false, this.fullscreen = false}) : super(key: key);
 
   final bool isCompareImage;
+  final bool fullscreen;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +18,7 @@ class EditedImage extends HookConsumerWidget {
 
     return InteractiveViewer(
       child: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 56.0),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + (fullscreen ? 0.0 : 56.0)),
         child: Padding(
           padding: const EdgeInsets.only(left: Insets.l, right: Insets.l, top: Insets.m, bottom: Insets.l),
           child: Stack(

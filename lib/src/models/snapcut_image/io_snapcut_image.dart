@@ -39,7 +39,7 @@ class IoSnapcutImage implements SnapcutImage {
   @override
   SnapcutImage clone({List<FilterToolType>? newFilterToolTypes}) {
     final si = IoSnapcutImage();
-    si.open(path!, newFilterToolTypes ?? filterToolTypes);
+    si.open(path!, newFilterToolTypes ?? List.from(filterToolTypes));
     return si;
   }
 }

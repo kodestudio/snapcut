@@ -38,7 +38,7 @@ class WebSnapcutImage implements SnapcutImage {
   @override
   SnapcutImage clone({List<FilterToolType>? newFilterToolTypes}) {
     final si = WebSnapcutImage();
-    si.open(bytes!, newFilterToolTypes ?? filterToolTypes);
+    si.open(bytes!, newFilterToolTypes ?? List.from(filterToolTypes));
     return si;
   }
 }

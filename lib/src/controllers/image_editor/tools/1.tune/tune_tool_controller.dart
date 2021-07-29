@@ -10,6 +10,8 @@ import 'package:snapcut/src/utils/utils.dart';
 final tuneToolControllerProvider = StateNotifierProvider.autoDispose<TuneToolController, TuneWithType>((ref) => TuneToolController(ref));
 
 class TuneWithType {
+  const TuneWithType(this.tune, this.type);
+
   final Tune tune;
   final TuneType type;
 
@@ -40,11 +42,28 @@ class TuneWithType {
         args: [''],
       );
 
-  TuneWithType(this.tune, this.type);
+  TuneWithType update(TuneType type, int value) {
+    switch (type) {
+      case TuneType.brightness:
+        return TuneWithType(tune.copyWith(brightness: value), type);
+      case TuneType.contrast:
+        return TuneWithType(tune.copyWith(contrast: value), type);
+      case TuneType.saturation:
+        return TuneWithType(tune.copyWith(saturation: value), type);
+      case TuneType.ambiance:
+        return TuneWithType(tune.copyWith(ambiance: value), type);
+      case TuneType.hightlights:
+        return TuneWithType(tune.copyWith(hightlights: value), type);
+      case TuneType.shadows:
+        return TuneWithType(tune.copyWith(shadows: value), type);
+      case TuneType.warmth:
+        return TuneWithType(tune.copyWith(warmth: value), type);
+    }
+  }
 }
 
 class TuneToolController extends StateNotifier<TuneWithType> {
-  TuneToolController(this.ref) : super(TuneWithType(Tune.defaultValue, TuneType.brightness));
+  TuneToolController(this.ref) : super(const TuneWithType(Tune.defaultValue, TuneType.brightness));
 
   final ProviderRefBase ref;
 
@@ -120,6 +139,34 @@ class TuneToolController extends StateNotifier<TuneWithType> {
     }
 
     updateImage(value);
+  }
+
+  void updateTuneWithType(TuneWithType tuneWithType) {
+    switch (tuneWithType.type) {
+      case TuneType.brightness:
+        state = TuneWithType(state.tune.copyWith(brightness: tuneWithType.tuneValue), state.type);
+        break;
+      case TuneType.contrast:
+        state = TuneWithType(state.tune.copyWith(contrast: tuneWithType.tuneValue), state.type);
+        break;
+      case TuneType.saturation:
+        state = TuneWithType(state.tune.copyWith(saturation: tuneWithType.tuneValue), state.type);
+        break;
+      case TuneType.ambiance:
+        state = TuneWithType(state.tune.copyWith(ambiance: tuneWithType.tuneValue), state.type);
+        break;
+      case TuneType.hightlights:
+        state = TuneWithType(state.tune.copyWith(hightlights: tuneWithType.tuneValue), state.type);
+        break;
+      case TuneType.shadows:
+        state = TuneWithType(state.tune.copyWith(shadows: tuneWithType.tuneValue), state.type);
+        break;
+      case TuneType.warmth:
+        state = TuneWithType(state.tune.copyWith(warmth: tuneWithType.tuneValue), state.type);
+        break;
+    }
+
+    updateImage(tuneWithType.tuneValue);
   }
 
   void updateType(TuneType value) {

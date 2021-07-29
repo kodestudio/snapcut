@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:snapcut/src/_internal/image_processor/image_processor.dart';
@@ -17,35 +16,6 @@ class TuneFilterTool implements FilterTool {
 
   const TuneFilterTool(this.type, this.value);
 
-  List<double> calculateContrastMatrix(double contrast) {
-    final m = List<double>.from(defaultColorMatrix);
-
-    m[0] = 1 + contrast * 0.5;
-    m[6] = 1 + contrast * 0.5;
-    m[12] = 1 + contrast * 0.5;
-    return m;
-  }
-
-  List<double> calculateSaturationMatrix(double saturation) {
-    final m = List<double>.from(defaultColorMatrix);
-    final invSat = 1 - saturation;
-    final R = 0.3086 * invSat;
-    final G = 0.6094 * invSat;
-    final B = 0.0820 * invSat;
-
-    m[0] = R + saturation;
-    m[1] = G;
-    m[2] = B;
-    m[5] = R;
-    m[6] = G + saturation;
-    m[7] = B;
-    m[10] = R;
-    m[11] = G;
-    m[12] = B + saturation;
-
-    return m;
-  }
-
   @override
   Widget filter(Widget child) {
     // TuneType.brightness
@@ -58,16 +28,6 @@ class TuneFilterTool implements FilterTool {
 
     switch (type) {
       case TuneType.brightness:
-        if (kIsWeb) {
-          return Container(
-            foregroundDecoration: BoxDecoration(
-              color: value > 0 ? const Color(0xFFEEEEEE).withOpacity(value / 110) : Colors.black12.withOpacity(-value / 150),
-              backgroundBlendMode: value > 0 ? BlendMode.overlay : BlendMode.srcATop,
-            ),
-            child: child,
-          );
-        }
-
         return ColorFiltered(
           colorFilter: ImageProcessor.brightness(value),
           child: child,
@@ -105,8 +65,12 @@ class TuneFilterTool implements FilterTool {
           ],
         );
       case TuneType.hightlights:
-        return ColorFiltered(
-          colorFilter: ImageProcessor.hightlights(value),
+        return Container(
+          foregroundDecoration: BoxDecoration(
+            color: value > 0 ? Colors.amber.withOpacity(value / 300) : Colors.black.withOpacity(-value / 300),
+            backgroundBlendMode: BlendMode.hue,
+          ),
+          clipBehavior: Clip.none,
           child: child,
         );
       case TuneType.shadows:

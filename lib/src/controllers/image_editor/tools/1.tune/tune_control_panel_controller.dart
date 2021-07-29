@@ -4,13 +4,10 @@ import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_cont
 import 'package:snapcut/src/models/image_editor/tools/1.tune/tune.dart';
 import 'package:snapcut/src/models/image_editor/tools/1.tune/tune_type.dart';
 
-final tuneControlPanelControllerProvider = ChangeNotifierProvider(
-  (ref) => TuneControlPanelController(ref.read),
-);
+final tuneControlPanelControllerProvider = ChangeNotifierProvider.autoDispose((ref) => TuneControlPanelController());
 
 class TuneControlPanelController extends ChangeNotifier {
-  TuneControlPanelController(this._read);
-  final Reader _read;
+  TuneControlPanelController();
 
   bool visible = false;
 
