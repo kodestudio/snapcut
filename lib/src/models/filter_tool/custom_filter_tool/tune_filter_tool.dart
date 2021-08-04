@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:snapcut/src/_internal/image_processor/image_processor.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune_type.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune_type.dart';
 import 'package:snapcut/src/utils/hive_id.dart';
 
 part 'tune_filter_tool.g.dart';
@@ -68,7 +68,7 @@ class TuneFilterTool implements FilterTool {
         return Container(
           foregroundDecoration: BoxDecoration(
             color: value > 0 ? Colors.amber.withOpacity(value / 300) : Colors.black.withOpacity(-value / 300),
-            backgroundBlendMode: BlendMode.hue,
+            backgroundBlendMode: BlendMode.xor,
           ),
           clipBehavior: Clip.none,
           child: child,

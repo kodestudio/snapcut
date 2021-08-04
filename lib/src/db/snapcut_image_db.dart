@@ -8,10 +8,11 @@ class SnapcutImageDb {
   Future<void> init() async {
     Hive.registerAdapter(BlendModeAdapter());
     Hive.registerAdapter(ToolTypeAdapter());
-    Hive.registerAdapter(FilterToolTypeAdapter());
+    Hive.registerAdapter(CollectionFilterToolAdapter());
     Hive.registerAdapter(SnapcutImageAdapter());
     Hive.registerAdapter(TuneTypeAdapter());
     Hive.registerAdapter(TuneFilterToolAdapter());
+    Hive.registerAdapter(ImageFilterToolLayerAdapter());
     _box = await Hive.openBox('seed_image');
   }
 

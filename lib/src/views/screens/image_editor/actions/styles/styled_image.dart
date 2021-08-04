@@ -16,7 +16,7 @@ class StyledImage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final image = ref.watch(snapcutImageControllerProvider)!.clone();
-    image.filterToolTypes.addAll(preset.filterToolType);
+    image.imageFilterToolLayer.merge(preset.imageFilterToolLayer);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: Insets.sm),
@@ -31,7 +31,13 @@ class StyledImage extends HookConsumerWidget {
               SizedBox(
                 height: 60,
                 width: 80,
-                child: Center(child: image.image),
+                child: StreamBuilder<Widget?>(
+                  stream: image.image,
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) return const Center(child: CircularProgressIndicator());
+                    return Center(child: snapshot.data);
+                  },
+                ),
               ),
               const SizedBox(height: Insets.sm),
               Text(preset.name.tr(), overflow: TextOverflow.ellipsis),

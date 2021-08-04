@@ -1,8 +1,9 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
+import 'package:snapcut/src/models/snapcut_image/image_filter_tool_layer.dart';
 
 import 'snapcut_image.dart';
 
@@ -14,31 +15,57 @@ class WebSnapcutImage implements SnapcutImage {
   String? path;
 
   @override
-  late List<FilterToolType> filterToolTypes;
+  late ImageFilterToolLayer imageFilterToolLayer;
 
   @override
-  Widget get image {
-    Widget img = Image.memory(bytes!);
+  Widget? cacheImage;
 
-    for (var typeFilterTool in filterToolTypes) {
-      for (var tool in typeFilterTool.filterToolList) {
-        img = tool.filter(img);
+  @override
+  Stream<Widget?> get image async* {
+    if (cacheImage != null) {
+      yield cacheImage!;
+    } else {
+      var collectionFilterTools = imageFilterToolLayer.back;
+
+      Widget bottom = const SizedBox();
+      for (var typeFilterTool in collectionFilterTools) {
+        for (var tool in typeFilterTool.filterToolList) {
+          bottom = await tool.filter(bottom);
+        }
       }
+
+      collectionFilterTools = imageFilterToolLayer.middle;
+
+      Widget img = Image.memory(bytes!);
+      for (var typeFilterTool in collectionFilterTools) {
+        for (var tool in typeFilterTool.filterToolList) {
+          img = await tool.filter(img);
+        }
+      }
+      collectionFilterTools = imageFilterToolLayer.front;
+
+      Widget top = const SizedBox();
+      for (var typeFilterTool in collectionFilterTools) {
+        for (var tool in typeFilterTool.filterToolList) {
+          top = await tool.filter(top);
+        }
+      }
+
+      log("Stream update!");
+      yield Stack(children: [bottom, img, top]);
     }
-
-    return img;
   }
 
   @override
-  void open(data, List<FilterToolType> filterToolTypes) {
+  void open(data, ImageFilterToolLayer imageFilterToolLayer) {
     bytes = data as Uint8List;
-    this.filterToolTypes = filterToolTypes;
+    this.imageFilterToolLayer = imageFilterToolLayer;
   }
 
   @override
-  SnapcutImage clone({List<FilterToolType>? newFilterToolTypes}) {
+  SnapcutImage clone({ImageFilterToolLayer? imageFilterToolLayer}) {
     final si = WebSnapcutImage();
-    si.open(bytes!, newFilterToolTypes ?? List.from(filterToolTypes));
+    si.open(path!, imageFilterToolLayer ?? this.imageFilterToolLayer.clone());
     return si;
   }
 }

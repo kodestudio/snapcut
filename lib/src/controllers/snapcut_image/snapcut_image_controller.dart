@@ -4,8 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/_internal/universal_picker/universal_picker.dart';
 import 'package:snapcut/src/db/snapcut_db.dart';
-import 'package:snapcut/src/models/filter_tool/.filter.dart';
-import 'package:snapcut/src/models/filter_tool/filter_tool_type.dart';
+import 'package:snapcut/src/models/snapcut_image/image_filter_tool_layer.dart';
 import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 
 final snapcutImageControllerProvider = StateNotifierProvider<SnapcutImageController, SnapcutImage?>((ref) => SnapcutImageController());
@@ -31,7 +30,7 @@ class SnapcutImageController extends StateNotifier<SnapcutImage?> {
     UniversalPicker universalPicker = UniversalPicker();
     await universalPicker.open();
     var si = SnapcutImage();
-    List<FilterToolType> defaultFilter = [];
+    ImageFilterToolLayer defaultFilter = ImageFilterToolLayer.defaultFilter;
     if (kIsWeb) {
       if (universalPicker.uint8list != null) {
         si.open(universalPicker.uint8list!, defaultFilter);

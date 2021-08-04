@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class Durations {
@@ -77,4 +79,15 @@ class Sizes {
   static const double sideBarMed = 200 * hitScale;
 
   static const double sideBarLg = 290 * hitScale;
+}
+
+class CustomCupertinoScrollBehavior extends CupertinoScrollBehavior {
+  const CustomCupertinoScrollBehavior();
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        // etc.
+      };
 }

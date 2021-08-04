@@ -60,7 +60,7 @@ class ImageProcessor {
     return ColorFilter.matrix(m);
   }
 
-  // Must implement in widget level
+  // [Must implement in widget level]
   static ColorFilter ambition(int value) => const ColorFilter.matrix(defaultColorMatrix);
 
   // TODO: missing implement filter

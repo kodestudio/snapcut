@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/snapcut_image/clone_snapcut_image_controller.dart';
 import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.dart';
+import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 import 'package:snapcut/src/utils/utils.dart';
 
 class EditedImage extends HookConsumerWidget {
-  const EditedImage({Key? key, this.isCompareImage = false, this.fullscreen = false}) : super(key: key);
+  const EditedImage({
+    Key? key,
+    this.isCompareImage = false,
+    this.fullscreen = false,
+    this.replaceImage,
+  })  : assert((isCompareImage == true && replaceImage == null) || (isCompareImage == false)),
+        super(key: key);
 
   final bool isCompareImage;
   final bool fullscreen;
+  final SnapcutImage? replaceImage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +31,13 @@ class EditedImage extends HookConsumerWidget {
           padding: const EdgeInsets.only(left: Insets.l, right: Insets.l, top: Insets.m, bottom: Insets.l),
           child: Stack(
             children: [
-              Center(child: (isCompareImage == false ? cloneSnapcutImage.state : snapcutImage).image),
+              StreamBuilder<Widget?>(
+                stream: (isCompareImage == false ? cloneSnapcutImage.state : (replaceImage ?? snapcutImage)).image,
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) return const Center(child: CircularProgressIndicator());
+                  return Center(child: snapshot.data);
+                },
+              ),
             ],
           ),
         ),

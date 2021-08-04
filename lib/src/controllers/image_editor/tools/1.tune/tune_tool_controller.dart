@@ -2,10 +2,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/snapcut_image/clone_snapcut_image_controller.dart';
 import 'package:snapcut/src/models/filter_tool/.filter.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune_type.dart';
-import 'package:snapcut/src/utils/utils.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune_type.dart';
 
 final tuneToolControllerProvider = StateNotifierProvider.autoDispose<TuneToolController, TuneWithType>((ref) => TuneToolController(ref));
 
@@ -78,16 +77,18 @@ class TuneToolController extends StateNotifier<TuneWithType> {
     // Check xem đã thêm toolType mới chưa
     if (isInitCloneImage == false) {
       preCloneImage = preCloneImage.clone(
-        newFilterToolTypes: [
-          ...preCloneImage.filterToolTypes,
-          const FilterToolType(ToolType.tune, []),
-        ],
+        imageFilterToolLayer: preCloneImage.imageFilterToolLayer.copyWith(
+          middle: [
+            ...preCloneImage.imageFilterToolLayer.middle,
+            const CollectionFilterTool(ToolType.tune, []),
+          ],
+        ),
       );
       isInitCloneImage = true;
     }
 
-    // Lấy phần FilterToolType đang xử lí trong trường hợp này đang sử dụng tool Tune.
-    final FilterToolType preToolType = preCloneImage.currentFilterToolType;
+    // Lấy phần CollectionFilterTool đang xử lí trong trường hợp này đang sử dụng tool Tune.
+    final CollectionFilterTool preToolType = preCloneImage.imageFilterToolLayer.middle.last;
     // Copy list mới tránh side-effect.
     List<FilterTool> filterToolList = List.from(preToolType.filterToolList);
 
@@ -103,14 +104,18 @@ class TuneToolController extends StateNotifier<TuneWithType> {
     }
     if (containsType == false) filterToolList.add(TuneFilterTool(state.type, value));
 
-    // Xử lí FilterToolType mới
-    final newFilterToolTypes = preCloneImage.filterToolTypes.sublist(
+    // Xử lí CollectionFilterTool mới
+    final newMiddleLayer = preCloneImage.imageFilterToolLayer.middle.sublist(
       0,
-      preCloneImage.filterToolTypes.length - 1,
+      preCloneImage.imageFilterToolLayer.middle.length - 1,
     );
-    newFilterToolTypes.add(FilterToolType(ToolType.tune, filterToolList));
+    newMiddleLayer.add(CollectionFilterTool(ToolType.tune, filterToolList));
 
-    cloneImage.state = preCloneImage.clone(newFilterToolTypes: newFilterToolTypes);
+    cloneImage.state = preCloneImage.clone(
+      imageFilterToolLayer: preCloneImage.imageFilterToolLayer.copyWith(
+        middle: newMiddleLayer,
+      ),
+    );
   }
 
   void updateTune(int value) {

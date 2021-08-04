@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune_type.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune_type.dart';
 
 final tuneControlPanelControllerProvider = ChangeNotifierProvider.autoDispose((ref) => TuneControlPanelController());
 

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_control_panel_controller.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune_type.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune_type.dart';
 import 'package:snapcut/src/utils/styles.dart';
 
 class TuneControlPanel extends HookConsumerWidget {

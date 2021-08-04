@@ -4,14 +4,14 @@ import 'package:snapcut/src/utils/hive_id.dart';
 import 'filter_tool.dart';
 import 'tool_type.dart';
 
-part 'filter_tool_type.g.dart';
+part 'collection_filter_tool.g.dart';
 
 @HiveType(typeId: HiveId.typeFilterTool)
-class FilterToolType {
+class CollectionFilterTool {
   @HiveField(0)
   final ToolType type;
   @HiveField(1)
   final List<FilterTool> filterToolList;
 
-  const FilterToolType(this.type, this.filterToolList);
+  const CollectionFilterTool(this.type, this.filterToolList);
 }

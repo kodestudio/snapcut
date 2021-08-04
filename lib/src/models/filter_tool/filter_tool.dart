@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 
 abstract class FilterTool {
-  Widget filter(Widget child);
+  FutureOr<Widget> filter(Widget child);
 }

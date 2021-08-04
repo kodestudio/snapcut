@@ -1,8 +1,8 @@
-import 'filter_tool_type.dart';
+import 'package:snapcut/src/models/snapcut_image/image_filter_tool_layer.dart';
 
 class PresetFilterTool {
   final String name;
-  final List<FilterToolType> filterToolType;
+  final ImageFilterToolLayer imageFilterToolLayer;
 
-  const PresetFilterTool({required this.name, required this.filterToolType});
+  const PresetFilterTool({required this.name, required this.imageFilterToolLayer});
 }

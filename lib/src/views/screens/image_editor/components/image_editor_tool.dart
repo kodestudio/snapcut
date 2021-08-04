@@ -4,7 +4,7 @@ import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dar
 import 'package:snapcut/src/utils/styles.dart';
 import 'package:snapcut/src/views/screens/image_editor/actions/styles/styles_box.dart';
 
-class ImageEditorToolBox extends HookConsumerWidget {
+class   ImageEditorToolBox extends HookConsumerWidget {
   const ImageEditorToolBox({Key? key}) : super(key: key);
 
   double _position(ActionState state) {
@@ -31,3 +31,4 @@ class ImageEditorToolBox extends HookConsumerWidget {
     );
   }
 }
+    

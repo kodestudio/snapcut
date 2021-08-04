@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
 import 'package:snapcut/src/controllers/snapcut_image/clone_snapcut_image_controller.dart';
 import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.dart';
-import 'package:snapcut/src/models/image_editor/tools/1.tune/tune_type.dart';
+import 'package:snapcut/src/models/image_editor/1.tune/tune_type.dart';
 import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 import 'package:snapcut/src/utils/styles.dart';
 import 'package:snapcut/src/views/screens/image_editor/components/top_tool.dart';
