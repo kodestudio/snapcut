@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_control_panel_controller.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
 
-class ControlGesture extends HookConsumerWidget {
-  const ControlGesture({Key? key}) : super(key: key);
+class TuneBackControlGesture extends HookConsumerWidget {
+  const TuneBackControlGesture({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +28,6 @@ class ControlGesture extends HookConsumerWidget {
             int updateValue = 0;
 
             int updateUnit = (details.localPosition.dx - initPos.value) ~/ oneUnit;
-
             updateValue = lastValue.value + updateUnit;
 
             if (updateValue < -100) updateValue = -100;
@@ -36,14 +35,17 @@ class ControlGesture extends HookConsumerWidget {
 
             controller.updateTune(updateValue);
           },
+          onHorizontalDragEnd: (details) {
+            controller.rerenderImage();
+          },
           onVerticalDragStart: (details) {
-            tuneControlPanelController.setInitPos(details.localPosition.dy);
+            tuneControlPanelController.setInitPosition(details.localPosition.dy);
             tuneControlPanelController.setVisible(true);
           },
           onVerticalDragUpdate: (details) {
             tuneControlPanelController.updateCurrentTuneWithType(tuneTool.tune);
             tuneControlPanelController.setLocalPosition(details.localPosition.dy);
-            controller.updateType(tuneControlPanelController.currentTuneWithType!.type);
+            controller.updateType(tuneControlPanelController.currentTuneValueWithType!.type);
           },
           onVerticalDragEnd: (details) {
             tuneControlPanelController.updateCurrentTuneWithType(tuneTool.tune);

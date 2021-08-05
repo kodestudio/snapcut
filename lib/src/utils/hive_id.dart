@@ -10,4 +10,5 @@ class HiveId {
   static const tuneTypeFilterTool = 8;
   static const tuneType = 9;
   static const imageFilterToolLayer = 10;
+  static const rotateFilterTool = 11;
 }

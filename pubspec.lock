@@ -301,6 +301,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  funvas:
+    dependency: "direct main"
+    description:
+      name: funvas
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4+1"
   glob:
     dependency: transitive
     description:
@@ -553,6 +560,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0-dev.6"
+  screenshot:
+    dependency: "direct main"
+    description:
+      name: screenshot
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.3"
   shared_preferences:
     dependency: transitive
     description:

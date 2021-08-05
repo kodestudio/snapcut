@@ -43,13 +43,13 @@ class TuneControlPanel extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        (controller.currentTuneWithType ?? tuneTool).typeText,
+                        (controller.currentTuneValueWithType ?? tuneTool).typeText,
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Theme.of(context).colorScheme.onPrimary,
                             ),
                       ),
                       Text(
-                        (controller.currentTuneWithType ?? tuneTool).tuneValue.toString(),
+                        (controller.currentTuneValueWithType ?? tuneTool).tuneValue.toString(),
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Theme.of(context).colorScheme.onPrimary,
                             ),
@@ -101,8 +101,8 @@ class TuneControlPanel extends HookConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(TuneWithType(tune, type).typeText),
-                            Text(TuneWithType(tune, type).tuneValue.toString()),
+                            Text(TuneValueWithType(tune, type).typeText),
+                            Text(TuneValueWithType(tune, type).tuneValue.toString()),
                           ],
                         ),
                       ),

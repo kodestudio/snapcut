@@ -28,7 +28,7 @@ class StylesBox extends StatelessWidget {
 }
 
 List<PresetFilterTool> presetFilterTools = [
-  const PresetFilterTool(
+  PresetFilterTool(
     name: 'presets.portrait',
     imageFilterToolLayer: ImageFilterToolLayer(
       middle: [

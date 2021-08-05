@@ -4,6 +4,7 @@ import 'package:snapcut/src/models/filter_tool/tool_type.dart';
 import 'package:snapcut/src/utils/globals.dart';
 import 'package:snapcut/src/utils/router.dart';
 import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/tune_tool.dart';
+import 'package:snapcut/src/views/screens/image_editor/tools/6.rotate/rotate_tool.dart';
 import 'package:snapcut/src/views/screens/image_editor/tools/unimplemented_tool.dart';
 
 final toolsControllerProvider = Provider<ToolsController>((ref) => ToolsController(ref));
@@ -20,6 +21,9 @@ class ToolsController {
     switch (toolType) {
       case ToolType.tune:
         tool = const TuneTool();
+        break;
+      case ToolType.rotate:
+        tool = const RotateTool();
         break;
       default:
         isImplemented = false;

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_control_panel_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:snapcut/src/controllers/snapcut_image/clone_snapcut_image_controller.dart';
 import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.dart';
 
-class BottomTuneTool extends HookConsumerWidget {
-  const BottomTuneTool({Key? key}) : super(key: key);
+class BaseBottomTool extends ConsumerWidget {
+  const BaseBottomTool({
+    Key? key,
+    this.onClose,
+    this.onAccept,
+    required this.actions,
+  }) : super(key: key);
+
+  final VoidCallback? onClose;
+  final VoidCallback? onAccept;
+
+  final List<Widget> actions;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tuneControlPanelController = ref.watch(tuneControlPanelControllerProvider);
     final cloneImageController = ref.watch(cloneSnapcutImageControllerProvider.notifier);
     final mainImageController = ref.watch(snapcutImageControllerProvider.notifier);
     final mainImage = ref.watch(snapcutImageControllerProvider);
@@ -25,17 +33,16 @@ class BottomTuneTool extends HookConsumerWidget {
           children: [
             GestureDetector(
               onTap: () {
+                onClose?.call();
                 cloneImageController.state = mainImage!.clone();
                 Navigator.pop(context);
               },
               child: const SizedBox(height: 48.0, width: 48.0, child: Center(child: Icon(Icons.close_outlined))),
             ),
-            GestureDetector(
-              onTap: () => tuneControlPanelController.setVisible(true),
-              child: const SizedBox(height: 48.0, width: 48.0, child: Center(child: Icon(Icons.tune_outlined))),
-            ),
+            ...actions,
             GestureDetector(
               onTap: () {
+                onAccept?.call();
                 mainImageController.saveImage(cloneImageController.state);
                 Navigator.pop(context);
               },

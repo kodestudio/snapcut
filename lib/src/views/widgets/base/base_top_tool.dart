@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/compare_image_controller.dart';
-import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
 import 'package:snapcut/src/utils/utils.dart';
 
-class TopTuneTool extends HookConsumerWidget {
-  const TopTuneTool({Key? key}) : super(key: key);
+class BaseTopTool extends ConsumerWidget {
+  const BaseTopTool({
+    Key? key,
+    required this.label,
+    required this.value,
+  }) : super(key: key);
+
+  final String label;
+  final int value;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tuneWithType = ref.watch(tuneToolControllerProvider);
     final isCompare = ref.watch(compareImageControllerProvider);
 
     return SafeArea(
@@ -17,15 +22,15 @@ class TopTuneTool extends HookConsumerWidget {
         height: 56.0,
         child: Column(
           children: [
-            _progressBar(context, tuneWithType),
-            _statusBar(context, tuneWithType, isCompare),
+            _progressBar(context, value: value),
+            _statusBar(context, isCompare, label: label),
           ],
         ),
       ),
     );
   }
 
-  Widget _progressBar(BuildContext context, TuneWithType tuneWithType) {
+  Widget _progressBar(BuildContext context, {required int value}) {
     return SizedBox(
       height: 16.0,
       width: double.maxFinite,
@@ -46,7 +51,7 @@ class TopTuneTool extends HookConsumerWidget {
                     alignment: Alignment.centerRight,
                     child: Container(
                       height: 8.0,
-                      width: tuneWithType.tuneValue < 0 ? (constraints.biggest.width / 2 * -tuneWithType.tuneValue / 100) : 0.0,
+                      width: value < 0 ? (constraints.biggest.width / 2 * -value / 100) : 0.0,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
@@ -58,7 +63,7 @@ class TopTuneTool extends HookConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: Container(
                       height: 8.0,
-                      width: tuneWithType.tuneValue >= 0 ? (constraints.biggest.width / 2 * tuneWithType.tuneValue / 100) : 0.0,
+                      width: value >= 0 ? (constraints.biggest.width / 2 * value / 100) : 0.0,
                       color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
@@ -91,9 +96,9 @@ class TopTuneTool extends HookConsumerWidget {
 
   Widget _statusBar(
     BuildContext context,
-    TuneWithType tuneWithType,
-    StateController<bool> isCompare,
-  ) {
+    StateController<bool> isCompare, {
+    required String label,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -107,7 +112,7 @@ class TopTuneTool extends HookConsumerWidget {
           ),
           alignment: Alignment.center,
           child: Text(
-            tuneWithType.typeTextWithTuneValue,
+            label,
             style: Theme.of(context).textTheme.subtitle2,
           ),
         ),

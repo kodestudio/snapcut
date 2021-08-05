@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:snapcut/src/_internal/image_processor/image_processor.dart';
@@ -14,7 +16,7 @@ class TuneFilterTool implements FilterTool {
   @HiveField(1)
   final TuneType type;
 
-  const TuneFilterTool(this.type, this.value);
+  TuneFilterTool(this.type, this.value);
 
   @override
   Widget filter(Widget child) {
@@ -65,14 +67,7 @@ class TuneFilterTool implements FilterTool {
           ],
         );
       case TuneType.hightlights:
-        return Container(
-          foregroundDecoration: BoxDecoration(
-            color: value > 0 ? Colors.amber.withOpacity(value / 300) : Colors.black.withOpacity(-value / 300),
-            backgroundBlendMode: BlendMode.xor,
-          ),
-          clipBehavior: Clip.none,
-          child: child,
-        );
+        return child;
       case TuneType.shadows:
         return ColorFiltered(
           colorFilter: ImageProcessor.shadows(value),

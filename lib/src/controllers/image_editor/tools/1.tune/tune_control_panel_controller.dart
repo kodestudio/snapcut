@@ -19,11 +19,11 @@ class TuneControlPanelController extends ChangeNotifier {
   double maxOffset = 0;
   double? lastOffset;
 
-  TuneWithType? currentTuneWithType;
+  TuneValueWithType? currentTuneValueWithType;
 
   void updateCurrentTuneWithType(Tune baseTune) {
     int currType = (maxOffset - (currentOffset) + 24) ~/ 48.0;
-    currentTuneWithType = TuneWithType(baseTune, TuneType.values[currType]);
+    currentTuneValueWithType = TuneValueWithType(baseTune, TuneType.values[currType]);
   }
 
   double get currentOffset {
@@ -35,7 +35,7 @@ class TuneControlPanelController extends ChangeNotifier {
     return res;
   }
 
-  void setInitPos(double value) {
+  void setInitPosition(double value) {
     initOffset = value;
     localPositionOffset = value;
   }

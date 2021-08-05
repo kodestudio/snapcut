@@ -17,14 +17,17 @@ class IoSnapcutImage implements SnapcutImage {
   @override
   late ImageFilterToolLayer imageFilterToolLayer;
 
+  bool isRenderDone = false;
+
   @override
   Widget? cacheImage;
 
   @override
   Stream<Widget?> get image async* {
-    if (cacheImage != null) {
+    if (cacheImage != null && isRenderDone) {
       yield cacheImage!;
     } else {
+      yield cacheImage;
       var collectionFilterTools = imageFilterToolLayer.back;
 
       Widget bottom = const SizedBox();
@@ -42,6 +45,7 @@ class IoSnapcutImage implements SnapcutImage {
           img = await tool.filter(img);
         }
       }
+
       collectionFilterTools = imageFilterToolLayer.front;
 
       Widget top = const SizedBox();
@@ -51,7 +55,8 @@ class IoSnapcutImage implements SnapcutImage {
         }
       }
 
-      cacheImage ??= Stack(children: [bottom, img, top]);
+      isRenderDone = true;
+      cacheImage = Stack(children: [bottom, img, top]);
       yield Stack(children: [bottom, img, top]);
     }
   }
@@ -60,12 +65,15 @@ class IoSnapcutImage implements SnapcutImage {
   void open(data, ImageFilterToolLayer imageFilterToolLayer) {
     path = data as String;
     this.imageFilterToolLayer = imageFilterToolLayer;
+    File(path!).readAsBytes().then((value) => bytes = value);
   }
 
   @override
   SnapcutImage clone({ImageFilterToolLayer? imageFilterToolLayer}) {
     final si = IoSnapcutImage();
     si.open(path!, imageFilterToolLayer ?? this.imageFilterToolLayer.clone());
+    si.cacheImage = cacheImage;
+    si.isRenderDone = false;
     return si;
   }
 }

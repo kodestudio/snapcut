@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:snapcut/src/controllers/image_editor/compare_image_controller.dart';
-import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/widgets/mobile/bottom_tune_tool.dart';
-import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/widgets/mobile/control_gesture.dart';
-import 'package:snapcut/src/views/screens/image_editor/components/edited_image.dart';
+import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/widgets/tune_bottom_tool.dart';
+import 'package:snapcut/src/views/screens/image_editor/tools/1.tune/widgets/tune_back_control_gesture.dart';
+import 'package:snapcut/src/views/widgets/tool_scaffold.dart';
 
-import 'widgets/mobile/top_tune_tool.dart';
+import 'widgets/tune_top_tool.dart';
 import 'widgets/tune_control_panel.dart';
 
-class TuneTool extends HookConsumerWidget {
+class TuneTool extends StatelessWidget {
   const TuneTool({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isCompare = ref.watch(compareImageControllerProvider);
-
-    return Scaffold(
-      body: ColoredBox(
-        color: Theme.of(context).colorScheme.background,
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 48.0),
-                child: EditedImage(isCompareImage: isCompare.state),
-              ),
-              const ControlGesture(),
-              const TopTuneTool(),
-              const BottomTuneTool(),
-              const TuneControlPanel(),
-            ],
-          ),
-        ),
-      ),
+  Widget build(BuildContext context) {
+    return const ToolScaffold(
+      topTool: TuneTopTool(),
+      bottomTool: TuneBottomTool(),
+      backControlGesture: TuneBackControlGesture(),
+      frontControlGesture: TuneControlPanel(),
     );
   }
 }

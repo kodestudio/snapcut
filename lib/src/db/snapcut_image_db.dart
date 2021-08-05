@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:snapcut/src/models/filter_tool/.filter.dart';
+import 'package:snapcut/src/models/filter_tool/custom_filter_tool/rotate_filter_tool.dart';
 import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 
 class SnapcutImageDb {
@@ -13,6 +14,7 @@ class SnapcutImageDb {
     Hive.registerAdapter(TuneTypeAdapter());
     Hive.registerAdapter(TuneFilterToolAdapter());
     Hive.registerAdapter(ImageFilterToolLayerAdapter());
+    Hive.registerAdapter(RotateFilterToolAdapter());
     _box = await Hive.openBox('seed_image');
   }
 
