@@ -17,7 +17,7 @@ void main() async {
       child: EasyLocalization(
         supportedLocales: const [
           Locale('vi', 'VN'),
-          Locale('en', 'US'),
+          // Locale('en', 'US'),
         ],
         path: 'assets/translations',
         saveLocale: true,
