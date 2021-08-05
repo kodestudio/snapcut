@@ -17,10 +17,10 @@ class IoSnapcutImage implements SnapcutImage {
   @override
   late ImageFilterToolLayer imageFilterToolLayer;
 
-  bool isRenderDone = false;
-
   @override
   Widget? cacheImage;
+
+  bool isRenderDone = false;
 
   @override
   Stream<Widget?> get image async* {

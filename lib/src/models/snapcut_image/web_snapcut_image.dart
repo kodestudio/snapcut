@@ -26,6 +26,7 @@ class WebSnapcutImage implements SnapcutImage {
     if (cacheImage != null && isRenderDone) {
       yield cacheImage!;
     } else {
+      yield cacheImage;
       var collectionFilterTools = imageFilterToolLayer.back;
 
       Widget bottom = const SizedBox();
@@ -43,6 +44,7 @@ class WebSnapcutImage implements SnapcutImage {
           img = await tool.filter(img);
         }
       }
+
       collectionFilterTools = imageFilterToolLayer.front;
 
       for (var typeFilterTool in collectionFilterTools) {
@@ -66,7 +68,8 @@ class WebSnapcutImage implements SnapcutImage {
   @override
   SnapcutImage clone({ImageFilterToolLayer? imageFilterToolLayer}) {
     final si = WebSnapcutImage();
-    si.open(path!, imageFilterToolLayer ?? this.imageFilterToolLayer.clone());
+    si.open(bytes!, imageFilterToolLayer ?? this.imageFilterToolLayer.clone());
+    si.cacheImage = cacheImage;
     si.isRenderDone = false;
     return si;
   }

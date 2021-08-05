@@ -1,6 +1,4 @@
 //ignore_for_file:prefer_final_fields
-import 'dart:collection';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/snapcut_image/clone_snapcut_image_controller.dart';
 import 'package:snapcut/src/models/filter_tool/.filter.dart';
@@ -8,7 +6,7 @@ import 'package:snapcut/src/models/image_editor/1.tune/tune.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:snapcut/src/models/image_editor/1.tune/tune_type.dart';
 
-final tuneToolControllerProvider = StateNotifierProvider.autoDispose<TuneToolController, TuneValueWithType>((ref) => TuneToolController(ref));
+final tuneToolControllerProvider = StateNotifierProvider.autoDispose<TuneToolController, TuneValueWithType>((ref) => TuneToolController(ref.read));
 
 class TuneValueWithType {
   const TuneValueWithType(this.tune, this.type);
@@ -64,67 +62,15 @@ class TuneValueWithType {
 }
 
 class TuneToolController extends StateNotifier<TuneValueWithType> {
-  TuneToolController(this.ref) : super(const TuneValueWithType(Tune.defaultValue, TuneType.brightness));
+  TuneToolController(this._read) : super(const TuneValueWithType(Tune.defaultValue, TuneType.brightness));
 
-  final ProviderRefBase ref;
+  final Reader _read;
 
   bool isInitImage = false;
 
-  Queue<int> updateValue = Queue();
-
-  void _updateImage(int value) {
-    // Lấy object cloneImage
-    final cloneImage = ref.read(cloneSnapcutImageControllerProvider);
-    // Lưu lại trạng thái trước khi thay đổi của cloneImage
-    var preCloneImage = cloneImage.state.clone();
-
-    // Check xem đã thêm toolType mới chưa
-    if (isInitImage == false) {
-      preCloneImage = preCloneImage.clone(
-        imageFilterToolLayer: preCloneImage.imageFilterToolLayer.copyWith(
-          middle: [
-            ...preCloneImage.imageFilterToolLayer.middle,
-            const CollectionFilterTool(ToolType.tune, []),
-          ],
-        ),
-      );
-      isInitImage = true;
-    }
-
-    // Lấy phần CollectionFilterTool đang xử lí trong trường hợp này đang sử dụng tool Tune.
-    final CollectionFilterTool preToolType = preCloneImage.imageFilterToolLayer.middle.last;
-    // Copy list mới tránh side-effect.
-    List<FilterTool> filterToolList = List.from(preToolType.filterToolList);
-
-    bool containsType = false;
-    // Xử lí theo TuneType
-    for (int i = 0; i < filterToolList.length; i++) {
-      TuneFilterTool tuneFilter = filterToolList[i] as TuneFilterTool;
-      if (tuneFilter.type == state.type) {
-        filterToolList[i] = TuneFilterTool(state.type, value);
-        containsType = true;
-        break;
-      }
-    }
-    if (containsType == false) filterToolList.add(TuneFilterTool(state.type, value));
-
-    // Xử lí CollectionFilterTool mới
-    final newMiddleLayer = preCloneImage.imageFilterToolLayer.middle.sublist(
-      0,
-      preCloneImage.imageFilterToolLayer.middle.length - 1,
-    );
-    newMiddleLayer.add(CollectionFilterTool(ToolType.tune, filterToolList));
-
-    cloneImage.state = preCloneImage.clone(
-      imageFilterToolLayer: preCloneImage.imageFilterToolLayer.copyWith(
-        middle: newMiddleLayer,
-      ),
-    );
-  }
-
   void rerenderImage() {
     // Lấy object cloneImage
-    final cloneImage = ref.read(cloneSnapcutImageControllerProvider);
+    final cloneImage = _read(cloneSnapcutImageControllerProvider);
     // Lưu lại trạng thái trước khi thay đổi của cloneImage
     var preImage = cloneImage.state.clone();
 
@@ -190,34 +136,6 @@ class TuneToolController extends StateNotifier<TuneValueWithType> {
         state = TuneValueWithType(state.tune.copyWith(warmth: value), state.type);
         break;
     }
-  }
-
-  void updateTuneWithType(TuneValueWithType tuneWithType) {
-    switch (tuneWithType.type) {
-      case TuneType.brightness:
-        state = TuneValueWithType(state.tune.copyWith(brightness: tuneWithType.tuneValue), state.type);
-        break;
-      case TuneType.contrast:
-        state = TuneValueWithType(state.tune.copyWith(contrast: tuneWithType.tuneValue), state.type);
-        break;
-      case TuneType.saturation:
-        state = TuneValueWithType(state.tune.copyWith(saturation: tuneWithType.tuneValue), state.type);
-        break;
-      case TuneType.ambiance:
-        state = TuneValueWithType(state.tune.copyWith(ambiance: tuneWithType.tuneValue), state.type);
-        break;
-      case TuneType.hightlights:
-        state = TuneValueWithType(state.tune.copyWith(hightlights: tuneWithType.tuneValue), state.type);
-        break;
-      case TuneType.shadows:
-        state = TuneValueWithType(state.tune.copyWith(shadows: tuneWithType.tuneValue), state.type);
-        break;
-      case TuneType.warmth:
-        state = TuneValueWithType(state.tune.copyWith(warmth: tuneWithType.tuneValue), state.type);
-        break;
-    }
-
-    _updateImage(tuneWithType.tuneValue);
   }
 
   void updateType(TuneType type) {
