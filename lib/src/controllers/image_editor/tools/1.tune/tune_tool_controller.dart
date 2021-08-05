@@ -68,7 +68,7 @@ class TuneToolController extends StateNotifier<TuneValueWithType> {
 
   final ProviderRefBase ref;
 
-  bool isInitCloneImage = false;
+  bool isInitImage = false;
 
   Queue<int> updateValue = Queue();
 
@@ -79,7 +79,7 @@ class TuneToolController extends StateNotifier<TuneValueWithType> {
     var preCloneImage = cloneImage.state.clone();
 
     // Check xem đã thêm toolType mới chưa
-    if (isInitCloneImage == false) {
+    if (isInitImage == false) {
       preCloneImage = preCloneImage.clone(
         imageFilterToolLayer: preCloneImage.imageFilterToolLayer.copyWith(
           middle: [
@@ -88,7 +88,7 @@ class TuneToolController extends StateNotifier<TuneValueWithType> {
           ],
         ),
       );
-      isInitCloneImage = true;
+      isInitImage = true;
     }
 
     // Lấy phần CollectionFilterTool đang xử lí trong trường hợp này đang sử dụng tool Tune.
@@ -126,25 +126,25 @@ class TuneToolController extends StateNotifier<TuneValueWithType> {
     // Lấy object cloneImage
     final cloneImage = ref.read(cloneSnapcutImageControllerProvider);
     // Lưu lại trạng thái trước khi thay đổi của cloneImage
-    var preCloneImage = cloneImage.state.clone();
+    var preImage = cloneImage.state.clone();
 
     // Check xem đã thêm toolType mới chưa
-    if (isInitCloneImage == false) {
-      preCloneImage = preCloneImage.clone(
-        imageFilterToolLayer: preCloneImage.imageFilterToolLayer.copyWith(
+    if (isInitImage == false) {
+      preImage = preImage.clone(
+        imageFilterToolLayer: preImage.imageFilterToolLayer.copyWith(
           middle: [
-            ...preCloneImage.imageFilterToolLayer.middle,
+            ...preImage.imageFilterToolLayer.middle,
             const CollectionFilterTool(ToolType.tune, []),
           ],
         ),
       );
-      isInitCloneImage = true;
+      isInitImage = true;
     }
 
     // Lấy phần CollectionFilterTool đang xử lí trong trường hợp này đang sử dụng tool Tune.
-    final CollectionFilterTool preToolType = preCloneImage.imageFilterToolLayer.middle.last;
+    final preFilterTool = preImage.imageFilterToolLayer.middle.last;
     // Copy list mới tránh side-effect.
-    List<FilterTool> filterToolList = List.from(preToolType.filterToolList);
+    List<FilterTool> filterToolList = List.from(preFilterTool.filterToolList);
 
     bool containsType = false;
     // Xử lí theo TuneType
@@ -159,17 +159,10 @@ class TuneToolController extends StateNotifier<TuneValueWithType> {
     if (containsType == false) filterToolList.add(TuneFilterTool(state.type, state.tuneValue));
 
     // Xử lí CollectionFilterTool mới
-    final newMiddleLayer = preCloneImage.imageFilterToolLayer.middle.sublist(
-      0,
-      preCloneImage.imageFilterToolLayer.middle.length - 1,
-    );
+    final newMiddleLayer = preImage.imageFilterToolLayer.middle.sublist(0, preImage.imageFilterToolLayer.middle.length - 1);
     newMiddleLayer.add(CollectionFilterTool(ToolType.tune, filterToolList));
 
-    cloneImage.state = preCloneImage.clone(
-      imageFilterToolLayer: preCloneImage.imageFilterToolLayer.copyWith(
-        middle: newMiddleLayer,
-      ),
-    );
+    cloneImage.state = preImage.clone(imageFilterToolLayer: preImage.imageFilterToolLayer.copyWith(middle: newMiddleLayer));
   }
 
   void updateTune(int value) {

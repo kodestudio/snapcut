@@ -17,19 +17,22 @@ class RotateFilterToolAdapter extends TypeAdapter<RotateFilterTool> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return RotateFilterTool(
-      angle: fields[0] as double,
-      flipped: fields[1] as bool,
+      quarterTurns: fields[0] as int,
+      horizontalFlipped: fields[1] as bool,
+      verticalFlipped: fields[2] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, RotateFilterTool obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.angle)
+      ..write(obj.quarterTurns)
       ..writeByte(1)
-      ..write(obj.flipped);
+      ..write(obj.horizontalFlipped)
+      ..writeByte(2)
+      ..write(obj.verticalFlipped);
   }
 
   @override

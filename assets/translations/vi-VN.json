@@ -62,6 +62,12 @@
             "whiteBalance": "Cân bằng trắng",
             "crop": "Cắt",
             "rotate": "Xoay",
+            "rotateChildren": {
+                "rotateLeft": "Xoay trái",
+                "rotateRight": "Xoay phải",
+                "flipHorizontal": "Lật ngang",
+                "flipVertical": "Lật dọc"
+            },
             "perspective": "Phối cảnh",
             "expand": "Mở rộng",
             "selective": "Chọn lọc",

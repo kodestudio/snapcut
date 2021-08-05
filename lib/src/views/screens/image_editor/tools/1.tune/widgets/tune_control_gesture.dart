@@ -4,8 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_control_panel_controller.dart';
 import 'package:snapcut/src/controllers/image_editor/tools/1.tune/tune_tool_controller.dart';
 
-class TuneBackControlGesture extends HookConsumerWidget {
-  const TuneBackControlGesture({Key? key}) : super(key: key);
+import 'package:snapcut/src/utils/utils.dart';
+
+class TuneControlGesture extends HookConsumerWidget {
+  const TuneControlGesture({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,21 +20,13 @@ class TuneBackControlGesture extends HookConsumerWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final oneUnit = constraints.biggest.width / 200;
         return GestureDetector(
           onHorizontalDragStart: (details) {
             initPos.value = details.localPosition.dx;
             lastValue.value = tuneTool.tuneValue;
           },
           onHorizontalDragUpdate: (details) {
-            int updateValue = 0;
-
-            int updateUnit = (details.localPosition.dx - initPos.value) ~/ oneUnit;
-            updateValue = lastValue.value + updateUnit;
-
-            if (updateValue < -100) updateValue = -100;
-            if (updateValue > 100) updateValue = 100;
-
+            var updateValue = constraints.getDragValue(details.localPosition, initPos, lastValue);
             controller.updateTune(updateValue);
           },
           onHorizontalDragEnd: (details) {

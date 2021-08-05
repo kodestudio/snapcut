@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -20,9 +19,11 @@ class WebSnapcutImage implements SnapcutImage {
   @override
   Widget? cacheImage;
 
+  bool isRenderDone = false;
+
   @override
   Stream<Widget?> get image async* {
-    if (cacheImage != null) {
+    if (cacheImage != null && isRenderDone) {
       yield cacheImage!;
     } else {
       var collectionFilterTools = imageFilterToolLayer.back;
@@ -44,15 +45,15 @@ class WebSnapcutImage implements SnapcutImage {
       }
       collectionFilterTools = imageFilterToolLayer.front;
 
-      Widget top = const SizedBox();
       for (var typeFilterTool in collectionFilterTools) {
         for (var tool in typeFilterTool.filterToolList) {
-          top = await tool.filter(top);
+          img = await tool.filter(img);
         }
       }
 
-      log("Stream update!");
-      yield Stack(children: [bottom, img, top]);
+      isRenderDone = true;
+      cacheImage = Stack(children: [bottom, img]);
+      yield Stack(children: [bottom, img]);
     }
   }
 
@@ -66,6 +67,7 @@ class WebSnapcutImage implements SnapcutImage {
   SnapcutImage clone({ImageFilterToolLayer? imageFilterToolLayer}) {
     final si = WebSnapcutImage();
     si.open(path!, imageFilterToolLayer ?? this.imageFilterToolLayer.clone());
+    si.isRenderDone = false;
     return si;
   }
 }

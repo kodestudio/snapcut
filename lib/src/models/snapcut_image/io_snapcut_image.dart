@@ -48,16 +48,15 @@ class IoSnapcutImage implements SnapcutImage {
 
       collectionFilterTools = imageFilterToolLayer.front;
 
-      Widget top = const SizedBox();
       for (var typeFilterTool in collectionFilterTools) {
         for (var tool in typeFilterTool.filterToolList) {
-          top = await tool.filter(top);
+          img = await tool.filter(img);
         }
       }
 
       isRenderDone = true;
-      cacheImage = Stack(children: [bottom, img, top]);
-      yield Stack(children: [bottom, img, top]);
+      cacheImage = Stack(children: [bottom, img]);
+      yield Stack(children: [bottom, img]);
     }
   }
 

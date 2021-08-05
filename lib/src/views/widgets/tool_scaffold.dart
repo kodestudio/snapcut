@@ -8,14 +8,14 @@ class ToolScaffold extends ConsumerWidget {
     Key? key,
     required this.topTool,
     required this.bottomTool,
-    this.backControlGesture,
-    this.frontControlGesture,
+    this.controlGesture,
+    this.controlPanel,
   }) : super(key: key);
 
   final Widget topTool;
   final Widget bottomTool;
-  final Widget? backControlGesture;
-  final Widget? frontControlGesture;
+  final Widget? controlGesture;
+  final Widget? controlPanel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,10 +33,10 @@ class ToolScaffold extends ConsumerWidget {
                 padding: const EdgeInsets.only(bottom: 48.0),
                 child: EditedImage(isCompareImage: isCompare.state),
               ),
-              if (backControlGesture != null) backControlGesture!,
+              if (controlGesture != null) controlGesture!,
               topTool,
               bottomTool,
-              if (frontControlGesture != null) frontControlGesture!,
+              if (controlPanel != null) controlPanel!,
             ],
           ),
         ),

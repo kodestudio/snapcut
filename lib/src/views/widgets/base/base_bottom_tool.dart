@@ -8,13 +8,13 @@ class BaseBottomTool extends ConsumerWidget {
     Key? key,
     this.onClose,
     this.onAccept,
-    required this.actions,
+    this.actions,
   }) : super(key: key);
 
   final VoidCallback? onClose;
   final VoidCallback? onAccept;
 
-  final List<Widget> actions;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,7 +39,7 @@ class BaseBottomTool extends ConsumerWidget {
               },
               child: const SizedBox(height: 48.0, width: 48.0, child: Center(child: Icon(Icons.close_outlined))),
             ),
-            ...actions,
+            if (actions != null) ...actions!,
             GestureDetector(
               onTap: () {
                 onAccept?.call();
