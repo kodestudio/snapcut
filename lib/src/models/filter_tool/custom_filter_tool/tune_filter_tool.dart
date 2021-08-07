@@ -67,7 +67,29 @@ class TuneFilterTool implements FilterTool {
           ],
         );
       case TuneType.hightlights:
-        return child;
+        return ShaderMask(
+          shaderCallback: (bounds) => LinearGradient(
+            colors: [
+              Color.lerp(Colors.red, Colors.redAccent, value / 100)!,
+              Color.lerp(Colors.cyan, Colors.cyanAccent, value / 100)!,
+            ],
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            tileMode: TileMode.decal,
+          ).createShader(bounds),
+          child: ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [
+                Color.lerp(Colors.amber, Colors.amberAccent, value / 100)!,
+                Color.lerp(Colors.blue, Colors.blueAccent, value / 100)!,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              tileMode: TileMode.decal,
+            ).createShader(bounds),
+            child: child,
+          ),
+        );
       case TuneType.shadows:
         return ColorFiltered(
           colorFilter: ImageProcessor.shadows(value),

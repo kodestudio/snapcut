@@ -29,18 +29,13 @@ class RotateFilterTool implements FilterTool {
   FutureOr<Widget> filter(Widget child) {
     return RotatedBox(
       quarterTurns: quarterTurns,
-      child: TweenAnimationBuilder<double>(
-        duration: Durations.fast,
-        tween: Tween<double>(begin: 0.0, end: horizontalFlipped ? 1.0 : 0.0),
-        builder: (context, value, horizontalTween) => Transform(
+      child: Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.rotationY((horizontalFlipped ? 1.0 : 0.0) * math.pi),
+        child: Transform(
           alignment: Alignment.center,
-          transform: Matrix4.rotationY(value * math.pi),
-          child: horizontalTween,
-        ),
-        child: TweenAnimationBuilder<double>(
-          duration: Durations.fast,
-          tween: Tween<double>(begin: 0.0, end: verticalFlipped ? 1.0 : 0.0),
-          builder: (context, value, _) => Transform(alignment: Alignment.center, transform: Matrix4.rotationX(value * math.pi), child: child),
+          transform: Matrix4.rotationX((verticalFlipped ? 1.0 : 0.0) * math.pi),
+          child: child,
         ),
       ),
     );
