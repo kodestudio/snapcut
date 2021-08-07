@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/image_editor_controller.dart';
 import 'package:snapcut/src/utils/styles.dart';
-import 'package:snapcut/src/views/screens/image_editor/components/edited_image.dart';
+import 'package:snapcut/src/views/screens/image_editor/components/preview_image.dart';
 
 class ImageView extends HookConsumerWidget {
   const ImageView({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class ImageView extends HookConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(child: EditedImage()),
+        const Expanded(child: PreviewImage()),
         AnimatedSize(
           child: Container(
             height: state == ActionState.none ? 0.0 : 80.0,

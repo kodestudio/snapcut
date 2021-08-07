@@ -22,7 +22,10 @@ class BrushFilterTool extends FilterTool {
   Widget filter(Widget child) {
     switch (brushType) {
       case BrushType.dodgeAndBurn:
-        return child;
+        return CustomPaint(
+          foregroundPainter: BrushPainter(brushType: brushType, points: points),
+          child: child,
+        );
       case BrushType.exposure:
         return child;
       case BrushType.temperature:
@@ -31,6 +34,15 @@ class BrushFilterTool extends FilterTool {
         return child;
     }
   }
+
+  BrushFilterTool addPoint(BrushPoint point) => BrushFilterTool(
+        brushType: brushType,
+        points: [...points, point],
+      );
+  BrushFilterTool addPoints(List<BrushPoint> newPoints) => BrushFilterTool(
+        brushType: brushType,
+        points: [...points, ...newPoints],
+      );
 }
 
 @HiveType(typeId: HiveId.brushPoint)
@@ -40,7 +52,12 @@ class BrushPoint {
   @HiveField(1)
   final BrushLevel level;
 
-  void draw(Canvas canvas, Size size) {}
+  void draw(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Colors.blue
+      ..blendMode = BlendMode.colorDodge;
+    canvas.drawCircle(point.toOffset(size), 20, paint);
+  }
 
   const BrushPoint(this.point, this.level);
 }
@@ -53,10 +70,12 @@ class Point {
   final double dy;
 
   const Point(this.dx, this.dy);
+
+  Offset toOffset(Size size) => Offset(dx * size.width, dy * size.height);
 }
 
 extension PointX on Offset {
-  Point toPoint() => Point(dx, dy);
+  BrushPoint toPoint(BrushLevel level) => BrushPoint(Point(dx, dy), level);
 }
 
 @HiveType(typeId: HiveId.brushLevel)
@@ -96,11 +115,12 @@ class BrushPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // FIX: Poor performance fix this
     for (var point in points) {
       point.draw(canvas, size);
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

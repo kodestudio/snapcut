@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/image_editor/compare_image_controller.dart';
-import 'package:snapcut/src/views/screens/image_editor/components/edited_image.dart';
+import 'package:snapcut/src/views/screens/image_editor/components/preview_image.dart';
 
 class ToolScaffold extends ConsumerWidget {
   const ToolScaffold({
     Key? key,
-    required this.topTool,
-    required this.bottomTool,
+    this.topTool,
+    this.bottomTool,
+    this.previewImage,
     this.controlGesture,
     this.controlPanel,
   }) : super(key: key);
 
-  final Widget topTool;
-  final Widget bottomTool;
+  final Widget? topTool;
+  final Widget? bottomTool;
+  final Widget? previewImage;
   final Widget? controlGesture;
   final Widget? controlPanel;
 
@@ -31,11 +33,11 @@ class ToolScaffold extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(bottom: 48.0),
-                child: EditedImage(isCompareImage: isCompare.state),
+                child: previewImage ?? PreviewImage(isCompareImage: isCompare.state),
               ),
               if (controlGesture != null) controlGesture!,
-              topTool,
-              bottomTool,
+              if (topTool != null) topTool!,
+              if (bottomTool != null) bottomTool!,
               if (controlPanel != null) controlPanel!,
             ],
           ),

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:snapcut/src/models/filter_tool/collection_filter_tool.dart';
 import 'package:snapcut/src/models/snapcut_image/image_filter_tool_layer.dart';
 import 'package:snapcut/src/utils/hive_id.dart';
 
@@ -26,4 +27,12 @@ abstract class SnapcutImage {
 
   Widget? cacheImage;
   Stream<Widget?> get image;
+
+  SnapcutImage addCollectionInBackLayer(CollectionFilterTool collection);
+  SnapcutImage addCollectionInMiddleLayer(CollectionFilterTool collection);
+  SnapcutImage addCollectionInFrontLayer(CollectionFilterTool collection);
+
+  SnapcutImage replaceLastCollectionInBackLayer(CollectionFilterTool collection);
+  SnapcutImage replaceLastCollectionInMiddleLayer(CollectionFilterTool collection);
+  SnapcutImage replaceLastCollectionInFrontLayer(CollectionFilterTool collection);
 }

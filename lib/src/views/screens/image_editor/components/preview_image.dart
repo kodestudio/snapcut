@@ -1,13 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:snapcut/src/controllers/snapcut_image/clone_snapcut_image_controller.dart';
 import 'package:snapcut/src/controllers/snapcut_image/snapcut_image_controller.dart';
 import 'package:snapcut/src/models/snapcut_image/snapcut_image.dart';
 import 'package:snapcut/src/utils/utils.dart';
 
-class EditedImage extends HookConsumerWidget {
-  const EditedImage({
+class PreviewImage extends HookConsumerWidget {
+  const PreviewImage({
     Key? key,
     this.isCompareImage = false,
     this.fullscreen = false,
@@ -35,7 +36,14 @@ class EditedImage extends HookConsumerWidget {
                 stream: (isCompareImage == false ? cloneSnapcutImage.state : (replaceImage ?? snapcutImage)).image,
                 builder: (context, snapshot) {
                   if (snapshot.data == null) return const Center(child: CircularProgressIndicator());
-                  return Center(child: snapshot.data);
+                  return Center(
+                    child: GestureDetector(
+                      onPanUpdate: (details) {
+                        print(details.localPosition);
+                      },
+                      child: snapshot.data,
+                    ),
+                  );
                 },
               ),
             ],

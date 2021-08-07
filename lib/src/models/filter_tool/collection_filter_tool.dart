@@ -14,4 +14,7 @@ class CollectionFilterTool {
   final List<FilterTool> filterToolList;
 
   const CollectionFilterTool(this.type, this.filterToolList);
+
+  CollectionFilterTool addFilter(FilterTool filterTool) => CollectionFilterTool(type, [...filterToolList, filterTool]);
+  CollectionFilterTool replaceFilters(List<FilterTool> filterToolList) => CollectionFilterTool(type, [...filterToolList]);
 }

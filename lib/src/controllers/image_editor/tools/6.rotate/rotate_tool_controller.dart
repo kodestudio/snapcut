@@ -36,42 +36,32 @@ class RotateToolController extends StateNotifier<RotateInfo> {
 
   void rerenderImage() {
     var cloneImage = _read(cloneSnapcutImageControllerProvider);
-    var preImage = cloneImage.state.clone();
+    CollectionFilterTool currentTool;
 
     if (isInitImage == false) {
-      preImage = preImage.clone(
-        imageFilterToolLayer: preImage.imageFilterToolLayer.copyWith(
-          front: [
-            ...preImage.imageFilterToolLayer.middle,
-            const CollectionFilterTool(ToolType.rotate, []),
-          ],
+      currentTool = const CollectionFilterTool(ToolType.rotate, []);
+
+      currentTool = currentTool.addFilter(
+        RotateFilterTool(
+          quarterTurns: state.quarterTurns,
+          horizontalFlipped: state.horizontalFlipped,
+          verticalFlipped: state.verticalFlipped,
         ),
       );
+      cloneImage.state = cloneImage.state.clone().addCollectionInFrontLayer(currentTool);
       isInitImage = true;
-    }
-
-    // Lấy phần CollectionFilterTool đang xử lí trong trường hợp này đang sử dụng tool Tune.
-    final preFilterTool = preImage.imageFilterToolLayer.front.last;
-    // Copy list mới tránh side-effect.
-    List<FilterTool> filterToolList = List.from(preFilterTool.filterToolList);
-    if (filterToolList.isNotEmpty) {
-      filterToolList[0] = RotateFilterTool(
-        quarterTurns: state.quarterTurns,
-        horizontalFlipped: state.horizontalFlipped,
-        verticalFlipped: state.verticalFlipped,
-      );
     } else {
-      filterToolList.add(RotateFilterTool(
-        quarterTurns: state.quarterTurns,
-        horizontalFlipped: state.horizontalFlipped,
-        verticalFlipped: state.verticalFlipped,
-      ));
-    }
-    // Xử lí CollectionFilterTool mới
-    final newFrontLayer = preImage.imageFilterToolLayer.front.sublist(0, preImage.imageFilterToolLayer.front.length - 1);
-    newFrontLayer.add(CollectionFilterTool(ToolType.rotate, filterToolList));
+      currentTool = const CollectionFilterTool(ToolType.rotate, []);
 
-    cloneImage.state = preImage.clone(imageFilterToolLayer: preImage.imageFilterToolLayer.copyWith(front: newFrontLayer));
+      currentTool = currentTool.addFilter(
+        RotateFilterTool(
+          quarterTurns: state.quarterTurns,
+          horizontalFlipped: state.horizontalFlipped,
+          verticalFlipped: state.verticalFlipped,
+        ),
+      );
+      cloneImage.state = cloneImage.state.clone().replaceLastCollectionInFrontLayer(currentTool);
+    }
   }
 
   void rotate(int quarterTurns) {
