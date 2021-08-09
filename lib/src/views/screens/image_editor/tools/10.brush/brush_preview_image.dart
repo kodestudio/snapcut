@@ -13,7 +13,6 @@ class BrushPreviewImage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cloneSnapcutImage = ref.watch(cloneSnapcutImageControllerProvider);
     final controller = ref.watch(brushToolControllerProvider.notifier);
-    final brushInfo = ref.watch(brushToolControllerProvider);
     final currentBrushType = ref.watch(currentBrushTypeProvider);
 
     return InteractiveViewer(
@@ -44,7 +43,10 @@ class BrushPreviewImage extends HookConsumerWidget {
                               controller.rerenderImage();
                             }
                           },
-                          child: snapshot.data,
+                          onPanEnd: (details) {
+                            controller.setOnDraw(false);
+                          },
+                          child: RepaintBoundary(child: snapshot.data),
                         );
                       },
                     ),

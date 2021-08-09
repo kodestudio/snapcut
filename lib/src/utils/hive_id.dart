@@ -12,7 +12,7 @@ class HiveId {
   static const imageFilterToolLayer = 10;
   static const rotateFilterTool = 11;
   static const brushFilterTool = 12;
-  static const brushPoint = 13;
+  static const brushPoints = 13;
   static const point = 14;
   static const brushLevel = 15;
   static const brushType = 16;

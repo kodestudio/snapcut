@@ -121,7 +121,7 @@ class BrushFilterToolAdapter extends TypeAdapter<BrushFilterTool> {
     };
     return BrushFilterTool(
       brushType: fields[0] as BrushType,
-      points: (fields[1] as List).cast<BrushPoint>(),
+      points: (fields[1] as List).cast<BrushPoints>(),
     );
   }
 
@@ -146,28 +146,28 @@ class BrushFilterToolAdapter extends TypeAdapter<BrushFilterTool> {
           typeId == other.typeId;
 }
 
-class BrushPointAdapter extends TypeAdapter<BrushPoint> {
+class BrushPointsAdapter extends TypeAdapter<BrushPoints> {
   @override
   final int typeId = 13;
 
   @override
-  BrushPoint read(BinaryReader reader) {
+  BrushPoints read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return BrushPoint(
-      fields[0] as Point,
+    return BrushPoints(
+      (fields[0] as List).cast<Point>(),
       fields[1] as BrushLevel,
     );
   }
 
   @override
-  void write(BinaryWriter writer, BrushPoint obj) {
+  void write(BinaryWriter writer, BrushPoints obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.point)
+      ..write(obj.points)
       ..writeByte(1)
       ..write(obj.level);
   }
@@ -178,7 +178,7 @@ class BrushPointAdapter extends TypeAdapter<BrushPoint> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BrushPointAdapter &&
+      other is BrushPointsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

@@ -20,12 +20,16 @@ class BrushTypeAndLevel {
 }
 
 class BrushInfo {
+  final bool onDraw;
+  final BrushType currentType;
   final BrushFilterTool? dodgeAndBurn;
   final BrushFilterTool? exposure;
   final BrushFilterTool? temperature;
   final BrushFilterTool? saturation;
 
   const BrushInfo({
+    this.onDraw = false,
+    this.currentType = BrushType.dodgeAndBurn,
     this.dodgeAndBurn,
     this.exposure,
     this.temperature,
@@ -33,12 +37,16 @@ class BrushInfo {
   });
 
   BrushInfo copyWith({
+    BrushType? currentType,
+    bool? onDraw,
     BrushFilterTool? dodgeAndBurn,
     BrushFilterTool? exposure,
     BrushFilterTool? temperature,
     BrushFilterTool? saturation,
   }) =>
       BrushInfo(
+        currentType: currentType ?? this.currentType,
+        onDraw: onDraw ?? this.onDraw,
         dodgeAndBurn: dodgeAndBurn ?? this.dodgeAndBurn,
         exposure: exposure ?? this.exposure,
         saturation: saturation ?? this.saturation,
@@ -54,6 +62,82 @@ class BrushToolController extends StateController<BrushInfo> {
   final Reader _read;
 
   bool isInitImage = false;
+
+  List<Point> _cachePoint = [];
+
+  void setOnDraw(bool value) {
+    state = state.copyWith(onDraw: value);
+  }
+
+  void setCurrentBrushType(BrushType type) {
+    state = state.copyWith(currentType: type);
+  }
+
+  void undo() {
+    switch (state.currentType) {
+      case BrushType.dodgeAndBurn:
+        if (state.dodgeAndBurn != null) {
+          if (state.dodgeAndBurn!.points.isNotEmpty) {
+            List<BrushPoints> points = List.from(state.dodgeAndBurn!.points);
+            points.removeLast();
+            final dodgeAndBurn = BrushFilterTool(
+              brushType: state.currentType,
+              points: points,
+            );
+
+            state = state.copyWith(dodgeAndBurn: dodgeAndBurn);
+            rerenderImage();
+          }
+        }
+        break;
+      case BrushType.exposure:
+        if (state.exposure != null) {
+          if (state.exposure!.points.isNotEmpty) {
+            List<BrushPoints> points = List.from(state.exposure!.points);
+            points.removeLast();
+            final exposure = BrushFilterTool(
+              brushType: state.currentType,
+              points: points,
+            );
+
+            state = state.copyWith(exposure: exposure);
+            rerenderImage();
+          }
+        }
+        break;
+      case BrushType.saturation:
+        if (state.saturation != null) {
+          if (state.saturation!.points.isNotEmpty) {
+            List<BrushPoints> points = List.from(state.saturation!.points);
+            points.removeLast();
+            final saturation = BrushFilterTool(
+              brushType: state.currentType,
+              points: points,
+            );
+
+            state = state.copyWith(saturation: saturation);
+            rerenderImage();
+          }
+        }
+        break;
+      case BrushType.temperature:
+        if (state.temperature != null) {
+          if (state.temperature!.points.isNotEmpty) {
+            List<BrushPoints> points = List.from(state.temperature!.points);
+            points.removeLast();
+            final temperature = BrushFilterTool(
+              brushType: state.currentType,
+              points: points,
+            );
+
+            state = state.copyWith(temperature: temperature);
+            rerenderImage();
+          }
+        }
+        break;
+      default:
+    }
+  }
 
   void rerenderImage() {
     final cloneImage = _read(cloneSnapcutImageControllerProvider);
@@ -103,13 +187,7 @@ class BrushToolController extends StateController<BrushInfo> {
   }) {
     switch (type) {
       case BrushType.dodgeAndBurn:
-        int index = -1;
-        if (state.dodgeAndBurn != null) {
-          index = state.dodgeAndBurn!.points.indexWhere((point) {
-            return point.level == level && point.point.dx == offset.dx && point.point.dy == offset.dy;
-          });
-        }
-        if (index == -1) _updateDodgeAndBurn(offset, level);
+        _updateDodgeAndBurn(offset, level);
         break;
       case BrushType.exposure:
         _updateExposure(offset, level);
@@ -124,54 +202,91 @@ class BrushToolController extends StateController<BrushInfo> {
   }
 
   void _updateDodgeAndBurn(Offset offset, BrushLevel level) {
-    if (state.dodgeAndBurn == null) {
+    /// When is not draw yet so newPoints should be empty
+    if (state.onDraw == false) {
+      _cachePoint = [];
+      _cachePoint.add(offset.toPoint());
+      var newPoints = <BrushPoints>[];
+      if (state.dodgeAndBurn != null) {
+        newPoints = List.from(state.dodgeAndBurn!.points);
+      }
+      newPoints.add(BrushPoints(_cachePoint, level));
       state = state.copyWith(
-        dodgeAndBurn: BrushFilterTool(
-          brushType: BrushType.dodgeAndBurn,
-          points: [offset.toPoint(level)],
-        ),
+        onDraw: true,
+        dodgeAndBurn: BrushFilterTool(brushType: BrushType.dodgeAndBurn, points: newPoints),
       );
     } else {
-      state = state.copyWith(dodgeAndBurn: state.dodgeAndBurn!.addPoint(offset.toPoint(level)));
+      _cachePoint.add(offset.toPoint());
+      List<BrushPoints> newPoints = List.from(state.dodgeAndBurn!.points);
+      newPoints.removeLast();
+      newPoints.add(BrushPoints(_cachePoint, level));
+      state = state.copyWith(dodgeAndBurn: BrushFilterTool(brushType: BrushType.dodgeAndBurn, points: newPoints));
     }
   }
 
   void _updateExposure(Offset offset, BrushLevel level) {
-    if (state.exposure == null) {
+    if (state.onDraw == false) {
+      _cachePoint = [];
+      _cachePoint.add(offset.toPoint());
+      var newPoints = <BrushPoints>[];
+      if (state.exposure != null) {
+        newPoints = List.from(state.exposure!.points);
+      }
+      newPoints.add(BrushPoints(_cachePoint, level));
       state = state.copyWith(
-        exposure: BrushFilterTool(
-          brushType: BrushType.exposure,
-          points: [offset.toPoint(level)],
-        ),
+        onDraw: true,
+        exposure: BrushFilterTool(brushType: BrushType.exposure, points: newPoints),
       );
     } else {
-      state = state.copyWith(exposure: state.exposure!.addPoint(offset.toPoint(level)));
+      _cachePoint.add(offset.toPoint());
+      List<BrushPoints> newPoints = List.from(state.exposure!.points);
+      newPoints.removeLast();
+      newPoints.add(BrushPoints(_cachePoint, level));
+      state = state.copyWith(exposure: BrushFilterTool(brushType: BrushType.exposure, points: newPoints));
     }
   }
 
   void _updateSaturation(Offset offset, BrushLevel level) {
-    if (state.saturation == null) {
+    if (state.onDraw == false) {
+      _cachePoint = [];
+      _cachePoint.add(offset.toPoint());
+      var newPoints = <BrushPoints>[];
+      if (state.saturation != null) {
+        newPoints = List.from(state.saturation!.points);
+      }
+      newPoints.add(BrushPoints(_cachePoint, level));
       state = state.copyWith(
-        saturation: BrushFilterTool(
-          brushType: BrushType.saturation,
-          points: [offset.toPoint(level)],
-        ),
+        onDraw: true,
+        saturation: BrushFilterTool(brushType: BrushType.saturation, points: newPoints),
       );
     } else {
-      state = state.copyWith(saturation: state.saturation!.addPoint(offset.toPoint(level)));
+      _cachePoint.add(offset.toPoint());
+      List<BrushPoints> newPoints = List.from(state.saturation!.points);
+      newPoints.removeLast();
+      newPoints.add(BrushPoints(_cachePoint, level));
+      state = state.copyWith(saturation: BrushFilterTool(brushType: BrushType.saturation, points: newPoints));
     }
   }
 
   void _updateTemperature(Offset offset, BrushLevel level) {
-    if (state.temperature == null) {
+    if (state.onDraw == false) {
+      _cachePoint = [];
+      _cachePoint.add(offset.toPoint());
+      var newPoints = <BrushPoints>[];
+      if (state.temperature != null) {
+        newPoints = List.from(state.temperature!.points);
+      }
+      newPoints.add(BrushPoints(_cachePoint, level));
       state = state.copyWith(
-        temperature: BrushFilterTool(
-          brushType: BrushType.temperature,
-          points: [offset.toPoint(level)],
-        ),
+        onDraw: true,
+        temperature: BrushFilterTool(brushType: BrushType.temperature, points: newPoints),
       );
     } else {
-      state = state.copyWith(temperature: state.temperature!.addPoint(offset.toPoint(level)));
+      _cachePoint.add(offset.toPoint());
+      List<BrushPoints> newPoints = List.from(state.temperature!.points);
+      newPoints.removeLast();
+      newPoints.add(BrushPoints(_cachePoint, level));
+      state = state.copyWith(temperature: BrushFilterTool(brushType: BrushType.temperature, points: newPoints));
     }
   }
 }

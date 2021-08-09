@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:snapcut/src/_internal/image_processor/image_processor.dart';
 import 'package:snapcut/src/models/filter_tool/filter_tool.dart';
 import 'package:snapcut/src/utils/hive_id.dart';
 
@@ -10,7 +13,7 @@ class BrushFilterTool extends FilterTool {
   @HiveField(0)
   final BrushType brushType;
   @HiveField(1)
-  final List<BrushPoint> points;
+  final List<BrushPoints> points;
 
   BrushFilterTool({
     required this.brushType,
@@ -22,9 +25,21 @@ class BrushFilterTool extends FilterTool {
   Widget filter(Widget child) {
     switch (brushType) {
       case BrushType.dodgeAndBurn:
-        return CustomPaint(
-          foregroundPainter: BrushPainter(brushType: brushType, points: points),
-          child: child,
+        return Stack(
+          children: [
+            ColorFiltered(
+              colorFilter: ImageProcessor.warmth(40),
+              child: child,
+            ),
+            ClipPath(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: CustomPaint(
+                isComplex: true,
+                foregroundPainter: BrushPainter(brushType: brushType, pointsList: points),
+                child: child,
+              ),
+            ),
+          ],
         );
       case BrushType.exposure:
         return child;
@@ -35,31 +50,35 @@ class BrushFilterTool extends FilterTool {
     }
   }
 
-  BrushFilterTool addPoint(BrushPoint point) => BrushFilterTool(
+  BrushFilterTool addPoint(BrushPoints point) => BrushFilterTool(
         brushType: brushType,
         points: [...points, point],
       );
-  BrushFilterTool addPoints(List<BrushPoint> newPoints) => BrushFilterTool(
+  BrushFilterTool addPoints(List<BrushPoints> newPoints) => BrushFilterTool(
         brushType: brushType,
         points: [...points, ...newPoints],
       );
 }
 
-@HiveType(typeId: HiveId.brushPoint)
-class BrushPoint {
+@HiveType(typeId: HiveId.brushPoints)
+class BrushPoints {
   @HiveField(0)
-  final Point point;
+  final List<Point> points;
   @HiveField(1)
   final BrushLevel level;
 
   void draw(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = Colors.blue
-      ..blendMode = BlendMode.colorDodge;
-    canvas.drawCircle(point.toOffset(size), 20, paint);
+    final paint = Paint()
+      ..color = _brushLevelColors[level.index]
+      ..blendMode = BlendMode.clear
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = size.width / 11;
+
+    var offsets = points.map<Offset>((p) => Offset(p.dx * size.width, p.dy * size.height)).toList();
+    canvas.drawPoints(PointMode.polygon, offsets, paint);
   }
 
-  const BrushPoint(this.point, this.level);
+  const BrushPoints(this.points, this.level);
 }
 
 @HiveType(typeId: HiveId.point)
@@ -75,7 +94,7 @@ class Point {
 }
 
 extension PointX on Offset {
-  BrushPoint toPoint(BrushLevel level) => BrushPoint(Point(dx, dy), level);
+  Point toPoint() => Point(dx, dy);
 }
 
 @HiveType(typeId: HiveId.brushLevel)
@@ -92,6 +111,14 @@ enum BrushLevel {
   level2,
 }
 
+List<Color> _brushLevelColors = [
+  Colors.red,
+  Colors.green,
+  Colors.yellow,
+  Colors.blue,
+  Colors.cyan,
+];
+
 @HiveType(typeId: HiveId.brushType)
 enum BrushType {
   @HiveField(0)
@@ -107,17 +134,16 @@ enum BrushType {
 class BrushPainter extends CustomPainter {
   const BrushPainter({
     required this.brushType,
-    required this.points,
+    required this.pointsList,
   });
 
   final BrushType brushType;
-  final List<BrushPoint> points;
+  final List<BrushPoints> pointsList;
 
   @override
   void paint(Canvas canvas, Size size) {
-    // FIX: Poor performance fix this
-    for (var point in points) {
-      point.draw(canvas, size);
+    for (var points in pointsList) {
+      points.draw(canvas, size);
     }
   }
 

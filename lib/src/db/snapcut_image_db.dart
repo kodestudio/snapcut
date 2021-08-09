@@ -18,7 +18,7 @@ class SnapcutImageDb {
     Hive.registerAdapter(BrushLevelAdapter());
     Hive.registerAdapter(BrushTypeAdapter());
     Hive.registerAdapter(BrushFilterToolAdapter());
-    Hive.registerAdapter(BrushPointAdapter());
+    Hive.registerAdapter(BrushPointsAdapter());
     Hive.registerAdapter(PointAdapter());
 
     _box = await Hive.openBox('seed_image');
